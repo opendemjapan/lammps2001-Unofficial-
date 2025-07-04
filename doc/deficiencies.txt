@@ -1,0 +1,29 @@
+LAMMPS Deficiencies
+
+This is a brief list of features lacking in the current version of 
+LAMMPS. Some of these deficiencies are because of lack of 
+time/interest; others are just hard!
+    
+The calculation of pressure does not include a long-range Van der
+Waals correction.  This would be a constant for constant volume
+simulations but is a source of error for constant pressure simulations
+where the box-size varies dynamically.
+    
+The smoothed Coulomb style cannot be used with class 2 force fields.
+    
+The minimizer does not work with constant pressure conditions, nor for
+some kinds of fixes (constraints).
+    
+No support for non-rectilinear boxes (e.g. Parinello-Rahman pressure
+control).
+
+SHAKE fixes cannot be combined with rREPSA.
+
+In the current F90 version of LAMMPS, Ewald computations are 2x slower
+on some machines than they were in the earlier F77 version. This is
+probably because of F90 compiler treatment of allocatable arrays. This
+slowdown is not an issue with PPPM, which is more commonly used anyway.
+    
+LAMMPS uses a spatial-decomposition of the simulation domain, but no
+other load-balancing -- thus some geometries or density fluctuations
+can lead to load imbalance on a parallel machine.

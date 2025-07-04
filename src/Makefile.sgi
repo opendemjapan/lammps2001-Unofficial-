@@ -1,0 +1,38 @@
+# Makefile for SGI O2/R10000 w/ MPI
+
+SHELL = /bin/sh
+#.IGNORE:
+
+# System-specific settings
+
+MPI_ROOT =	/usr/local/mpi
+
+F90 =		f90
+F90FLAGS =	-O -n32 -I$(MPI_ROOT)/include
+CC =		cc
+CCFLAGS =	-O -n32 -I/usr/local/mpi/include -DFFT_SGI
+LINK =		f90
+LINKFLAGS =	-O -n32 -L/usr/local/mpi/lib/IRIX/ch_p4
+USRLIB =
+SYSLIB =	-lmpi -lcomplib.sgimath
+SIZE =		size
+
+# Link rule
+
+$(EXE):	$(OBJ)
+	$(LINK) $(LINKFLAGS) $(OBJ) $(USRLIB) $(SYSLIB) -o $(EXE)
+	$(SIZE) $(EXE)
+
+# Compilation rules
+
+.f.o:
+	@cp $< $*.F
+	$(F90) $(F90FLAGS) -c $*.F
+	@rm $*.F
+
+.c.o:
+	$(CC) $(CCFLAGS) -c $<
+
+# Individual dependencies
+
+include Makefile.depend

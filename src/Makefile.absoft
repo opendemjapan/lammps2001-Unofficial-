@@ -1,0 +1,38 @@
+# Makefile for Linux workstation - Absoft compiler w/out MPI
+
+SHELL = /bin/sh
+.IGNORE:
+
+# System-specific settings
+
+F90 =		f90
+F90FLAGS =	-O -I/usr/local/mpich/include
+CC =		cc
+CCFLAGS =	-O -I/usr/local/fftw -I/usr/local/mpich/include \
+			-DFFT_FFTW -DLINUX_KLUDGE
+LINK =		f90
+LINKFLAGS =	-O -L/usr/local/mpich/build/LINUX/ch_p4/lib/ \
+			-L/usr/local/lib/ 
+USRLIB =	-lmpi -lfftw
+SYSLIB =	-lm -lU77
+SIZE =		size
+
+# Link rule
+
+$(EXE):	$(OBJ)
+	$(LINK) $(LINKFLAGS) $(OBJ) $(USRLIB) $(SYSLIB) -o $(EXE)
+	$(SIZE) $(EXE)
+
+# Compilation rules
+
+.f.o:
+	@cp $< $*.F
+	$(F90) $(F90FLAGS) -c $*.F
+	@rm $*.F
+
+.c.o:
+	$(CC) $(CCFLAGS) -c $<
+
+# Individual dependencies
+
+$(OBJ):	$(INC)

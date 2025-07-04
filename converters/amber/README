@@ -1,0 +1,7 @@
+These Python scripts were written by Keir Novik (K.E.Novik@qmw.ac.uk).
+See some documentation at the top of the files - they are supposed to
+be fairly self-explanatory.
+
+amber2lammps.py		converts AMBER files into LAMMPS input format
+dump2trj.py		converts LAMMPS dump files into AMBER format
+dump2try99.py		same as dump2trj for LAMMPS 99 format

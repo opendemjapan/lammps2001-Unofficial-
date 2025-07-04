@@ -1,0 +1,36 @@
+# Makefile for Dell Linux box w/ MPI stubs
+
+SHELL = /bin/sh
+.IGNORE:
+
+# System-specific settings
+
+F90 =		ifort
+F90FLAGS =	-O -w -I../STUBS
+CC =		gcc
+CCFLAGS =	-O -I../STUBS -I/home/sjplimp/tools/fftw/include -DFFT_FFTW
+LINK =		ifort
+LINKFLAGS =	-O -L../STUBS -L/home/sjplimp/tools/fftw/lib
+USRLIB =	-lfftw -lmpi
+SYSLIB =
+SIZE =		size
+
+# Link rule
+
+$(EXE):	$(OBJ)
+	$(LINK) $(LINKFLAGS) $(OBJ) $(USRLIB) $(SYSLIB) -o $(EXE)
+	$(SIZE) $(EXE)
+
+# Compilation rules
+
+.f.o:
+	@cp $< $*.F
+	$(F90) $(F90FLAGS) -c $*.F
+	@rm $*.F
+
+.c.o:
+	$(CC) $(CCFLAGS) -c $<
+
+# Individual dependencies
+
+include Makefile.depend

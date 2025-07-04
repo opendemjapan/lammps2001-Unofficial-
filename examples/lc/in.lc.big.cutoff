@@ -1,0 +1,20 @@
+# 3x3 array of liquid-crystal molecules
+# 10.0 Angstrom cutoff, NPT
+
+units		real
+neighbor	2.0 1 20 0 1
+
+coulomb style	cutoff 10.0
+nonbond style	lj/cutoff 10.0 0
+mixing style	arithmetic
+
+read data	data.lc.big
+create temp	uniform 300.0 4762
+
+temp control	nose/hoover 300.0 300.0 0.01
+press control	nose/hoover xyz 1.0 1.0 0.0001
+
+timestep	1.0
+thermo flag	50
+
+run		100

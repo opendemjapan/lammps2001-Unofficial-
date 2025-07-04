@@ -1,0 +1,144 @@
+ LAMMPS 2001 (Nov 2001)
+# 2-d LJ Coutte flow simulation
+# cold upper wall moving in +x
+# thermostat flow atoms via hoover/drap option
+ Units lj
+ Dimension           2
+ Periodicity           0           1           0
+ Newton flag           0
+ Maximum cutoff   1.12246000000000     
+ Neighbor  0.300000000000000                1           1           5
+           1
+ Read data data.flow.cold
+ 3-d grid of procs =           2           4           1
+ Extra params: Extra own,ghost,neigh,buf
+      1.50      1.50      1.50      1.50
+ Atom arrays: Max own,ghost,atom,buf
+      1000      1237      2237     10000
+ Neighbor arrays: Max nonbond,bond,angle,dihedral,improper
+     10000         0         0         0         0
+# flow atom potentials
+ Coulomb style none
+ Nonbond style lj/cutoff   1.12246000000000                1
+ Nonbond coeff           1           1   1.00000000000000     
+   1.00000000000000        1.12246000000000     
+ Nonbond coeff           1           2   1.00000000000000     
+   1.00000000000000        1.12246000000000     
+ Nonbond coeff           1           3   1.00000000000000     
+   1.00000000000000        1.12246000000000     
+ Nonbond coeff           2           2   1.00000000000000     
+   1.00000000000000        1.12246000000000     
+ Nonbond coeff           2           3   1.00000000000000     
+   1.00000000000000        1.12246000000000     
+ Nonbond coeff           3           3   1.00000000000000     
+   1.00000000000000        1.12246000000000     
+# initialize wall atoms with constant v
+ Create group types           2           2
+   Velocites set for this many atoms:          20
+ Create group types           3           3
+   Velocites set for this many atoms:          20
+# initialize flow atoms
+ Create group remainder
+ Create temp uniform    1.00000000000000           482748
+   Velocites set for this many atoms:         170
+# constant v on upper wall
+ Fix style           1  setforce  0.000000000000000E+000  0.000000000000000E+000
+  0.000000000000000E+000
+ Assign fix           1  type           2
+ Fix style           2  setforce  0.000000000000000E+000  0.000000000000000E+000
+  0.000000000000000E+000
+ Assign fix           2  type           3
+# thermostat flow atoms via Hoover/drag
+ Fix style           3  hoover/drag   1.00000000000000     
+   1.00000000000000       1.000000000000000E-002
+ Assign fix           3  type           1
+ Timestep  3.000000000000000E-003
+ Thermo flag         100
+ Thermo style           1
+#dump atoms	50 dump.flow.hoover
+ Run        1000
+          20  atoms assigned to fix           1
+          20  atoms assigned to fix           2
+         170  atoms assigned to fix           3
+ Max possible # of 1-2 neighbors =           0
+ Max possible # of 1-3 neighbors =           0
+ Max possible # of 1-4 neighbors =           0
+ Max allocation for special neighbors =           0
+ Max actual special neighbors =           0
+ Memory use per processor (MBytes) =   0.532
+ 
+ Step Temp E_nbond E_bond E_long E_total Pressure Volume
+       0  2.000000  0.000000  0.000000  0.000000  2.000000  6.299930    66.6674
+     100  1.971962  0.156633  0.000000  0.000000  2.128596 10.827359    66.6674
+     200  2.091064  0.170641  0.000000  0.000000  2.261706 11.245707    66.6674
+     300  2.207071  0.136415  0.000000  0.000000  2.343486 11.042002    66.6674
+     400  1.915052  0.233796  0.000000  0.000000  2.148848 12.095873    66.6674
+     500  1.955726  0.179364  0.000000  0.000000  2.135090 11.057128    66.6674
+     600  2.000186  0.185320  0.000000  0.000000  2.185506 11.340154    66.6674
+     700  1.974998  0.143353  0.000000  0.000000  2.118351 10.564920    66.6674
+     800  1.903796  0.211543  0.000000  0.000000  2.115339 11.732985    66.6674
+     900  2.095448  0.194334  0.000000  0.000000  2.289783 12.040054    66.6674
+    1000  1.979169  0.172442  0.000000  0.000000  2.151612 11.143711    66.6674
+ Loop time:   3.59879687428474       on           8  procs for         210  atom
+ s
+ 
+ Nbond time/%:       0.012529       0.3481
+ Nay-1 time/%:       0.010574       0.2938
+ Exch  time/%:       0.128085       3.5591
+ Comm  time/%:       0.958212      26.6259
+ I/O   time/%:       0.000000       0.0000
+ Other time/%:       2.489397      69.1730
+ 
+ Nbond time:       0.0125 ave       0.0148 max       0.0100 min
+  Histogram:    1    0    2    0    1    0    0    2    1    1
+ Nay-1 time:       0.0106 ave       0.0132 max       0.0093 min
+  Histogram:    2    1    1    2    1    0    0    0    0    1
+ Exch  time:       0.1281 ave       0.1304 max       0.1260 min
+  Histogram:    2    0    2    0    0    0    0    3    0    1
+ Comm  time:       0.9582 ave       0.9799 max       0.9403 min
+  Histogram:    1    1    2    0    0    2    0    0    1    1
+ I/O   time:       0.0000 ave       0.0000 max       0.0000 min
+  Histogram:    8    0    0    0    0    0    0    0    0    0
+ Other time:       2.4894 ave       2.5073 max       2.4692 min
+  Histogram:    2    0    0    1    1    0    0    1    2    1
+ 
+ Nlocal:          26.2500 ave      30.0000 max      19.0000 min
+  Histogram:    1    0    1    0    0    0    2    0    1    3
+ Nghost:          24.7500 ave      31.0000 max      17.0000 min
+  Histogram:    1    1    2    0    0    0    0    0    1    3
+ Neighs:          53.5000 ave      73.0000 max      20.0000 min
+  Histogram:    1    0    0    2    0    0    0    2    1    2
+ Nswaps:          24.7500 ave      33.0000 max      13.0000 min
+  Histogram:    1    0    0    2    1    0    0    1    0    3
+ 
+ Total # of neighbors =         428
+ Ave neighs/atom =    2.038095
+ Ave nspecs/atom =    0.000000
+ Number of reneighborings =         108
+ Dangerous reneighborings =           0
+ 
+ Actual extra params: Extra own,ghost,neigh,buf
+      1.50      1.50      1.50      1.50
+ Optimal extra params: Extra own,ghost,neigh,buf
+      1.50      0.06      1.50      1.50
+ Max # of local atoms =          31  out of        1000
+ Max # of ghost atoms =          23  out of        1237
+ Max in neighbor list =          78  out of       10000
+ Max in swap list =          38  out of        1237
+ Max atoms exchanged =           7
+ Max atoms in border =          12  out of        3333
+ Max use of comm buffers =          48  out of       10000
+ Max # of bonds/atom =           0
+ Max # of angles/atom =           0
+ Max # of dihedrals/atom =           0
+ Max # of impropers/atom =           0
+ Max in bond list =           0  out of           0
+ Max in angle list =           0  out of           0
+ Max in dihedral list =           0  out of           0
+ Max in improper list =           0  out of           0
+ Max # of neighbor bins =        4693
+ Bins in stencil =          25
+ # of swaps =           4  Needs =           1           1           0
+ Cutneigh =   1.42246000000000     
+ Cut/Box =  0.155822673740320       0.311641933614568     
+   7.11229989401847     

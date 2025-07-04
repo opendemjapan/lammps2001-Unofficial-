@@ -1,0 +1,39 @@
+# Makefile for Computational Plant - ross
+
+SHELL = /bin/sh
+.IGNORE:
+
+# System-specific settings
+
+F90 =		/usr/local/cplant/ross/current/bin/f90
+F90FLAGS =	-O -DSYNC
+#F90FLAGS =	-O
+CC =		/usr/local/cplant/ross/current/bin/cc
+CCFLAGS =	-O -DFFT_DEC -DLINUX_KLUDGE
+#CCFLAGS =	-O -DFFT_DEC
+LINK =		/usr/local/cplant/ross/current/bin/f90
+LINKFLAGS =	-O
+USRLIB =	-lmpi -lcxml
+SYSLIB =
+SIZE =		size
+
+# Link rule
+
+$(EXE):	$(OBJ)
+	$(LINK) $(LINKFLAGS) $(OBJ) $(USRLIB) $(SYSLIB) -o $(EXE)
+	$(SIZE) $(EXE)
+
+# Compilation rules
+
+.f.o:
+	@cp $< $*.F
+	$(F90) $(F90FLAGS) -c $*.F
+	@rm $*.F
+
+.c.o:
+	$(CC) $(CCFLAGS) -c $<
+
+
+# Individual dependencies
+
+include Makefile.depend

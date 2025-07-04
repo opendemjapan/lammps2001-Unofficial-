@@ -1,0 +1,36 @@
+# Makefile for Intel Tflops
+
+SHELL = /bin/sh
+
+# System-specific settings
+
+F90 =		cif90
+F90FLAGS =	-O4 -Knoieee -DSYNC
+#F90FLAGS =	-O4 -Knoieee
+CC =		cicc
+CCFLAGS =	-O4 -Knoieee -DFFT_INTEL
+LINK =		cif90
+LINKFLAGS =	-Knoieee
+USRLIB =
+SYSLIB =	-lkmath -lmpi
+SIZE =		size
+
+# Link rule
+
+$(EXE):	$(OBJ)
+	$(LINK) $(LINKFLAGS) $(OBJ) $(USRLIB) $(SYSLIB) -o $(EXE)
+	$(SIZE) $(EXE)
+
+# Compilation rules
+
+.f.o:
+	@cp $< $*.F
+	$(F90) $(F90FLAGS) -c $*.F
+	@rm $*.F
+
+.c.o:
+	$(CC) $(CCFLAGS) -c $<
+
+# Individual dependencies
+
+include Makefile.depend

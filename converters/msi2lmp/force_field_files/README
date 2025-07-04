@@ -1,0 +1,7 @@
+This is a convenient directory where Accelys (nee Biosym) force
+files (e.g. cvff.frc and cff97.frc) can be placed for use by msi2lmp.
+
+We do not distribute these files with LAMMPS because Accelys sells
+them as part of their molecular modeling packages.  If you are using
+the msi2lmp tool, presumably you already have these Accelys files on
+your system.

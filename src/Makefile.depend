@@ -1,0 +1,49 @@
+lammps.o:	global.o 
+communicate.o:	global.o mpi.o 
+coord2bin.o:	global.o 
+diagnostic.o:	global.o 
+dump_atom.o:	global.o mpi.o 
+dump_force.o:	global.o mpi.o 
+dump_vel.o:	global.o mpi.o 
+ensemble.o:	global.o mpi.o 
+error.o:	global.o mpi.o 
+ewald.o:	global.o mpi.o 
+ewald_coeff.o:	global.o 
+finish.o:	global.o mpi.o 
+fix.o:	global.o mpi.o 
+force.o:	global.o 
+force_bond.o:	global.o 
+force_class2.o:	global.o 
+force_many.o:	global.o 
+force_respa.o:	global.o mpi.o 
+global.o:	
+initialize.o:	global.o mpi.o 
+input.o:	global.o mpi.o 
+integrate.o:	global.o mpi.o 
+integrate_respa.o:	global.o mpi.o 
+lapack.o:	
+memory.o:	global.o mpi.o 
+mesh_3d.o:	mpi.o 
+min_support.o:	global.o mpi.o 
+minimize.o:	
+misc.o:	global.o 
+mpi.o:	
+neighbor.o:	global.o mpi.o 
+pbc.o:	global.o 
+pppm.o:	global.o mpi.o 
+pppm_coeff.o:	global.o mpi.o 
+pppm_remap.o:	global.o mpi.o 
+random.o:	
+read_data.o:	global.o mpi.o 
+read_restart.o:	global.o mpi.o 
+scan_data.o:	
+setup.o:	global.o mpi.o 
+shake.o:	global.o mpi.o 
+special.o:	global.o mpi.o 
+start.o:	global.o mpi.o 
+stats.o:	mpi.o 
+string.o:	
+thermo.o:	global.o mpi.o 
+velocity.o:	global.o mpi.o 
+write_restart.o:	global.o mpi.o 
+fft_3d.c.o:	

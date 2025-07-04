@@ -1,0 +1,37 @@
+# Makefile for Linux workstation - Leahy compiler w/out MPI
+
+SHELL = /bin/sh
+.IGNORE:
+.SUFFIXES:      .o .c .f .F
+
+# System-specific settings
+
+F90 =           lf95
+F90FLAGS =      -O -I/home/sjplimp/tools/mpich/include
+CC =            cc
+CCFLAGS =       -O -I/home/sjplimp/tools/mpich/include -I/home/sjplimp/tools/fftw/include -DFFT_FFTW 
+LINK =          lf95
+LINKFLAGS =     -O -L/home/sjplimp/tools/mpich/lib -L/home/sjplimp/tools/fftw/lib
+USRLIB =        -lmpich -lfftw 
+SYSLIB =
+SIZE =          size
+
+# Link rule
+
+$(EXE): $(OBJ)
+	$(LINK) $(LINKFLAGS) $(OBJ) $(USRLIB) $(SYSLIB) -o $(EXE)
+	$(SIZE) $(EXE)
+
+# Compilation rules
+
+.f.o:
+	@cp $< $*.F
+	$(F90) $(F90FLAGS) -c $*.F
+	@rm $*.F
+
+.c.o:
+	$(CC) $(CCFLAGS) -c $<
+
+# Individual dependencies
+
+include Makefile.depend

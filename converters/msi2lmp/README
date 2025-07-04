@@ -1,0 +1,122 @@
+ msi2lmp V3.1 9/18/2001
+
+ This program uses the .car and .mdf files from the 
+ Accelys (previously MSI/BioSym) INSIGHT program to produce a
+ LAMMPS data file.
+
+ 1. Building msi2lmp3
+
+    Use the Makefile in the src directory. It is
+    currently set up for gcc. One will have to modify
+    it to use a different compiler.
+
+ 2. Testing the program
+
+    There are three pairs (.car and .mdf) files in the
+    test directory: crambin, nylon and phen3_cff97. The
+    atom types in crambin and nylon are cvff (Class I) atom
+    types and those in phen3_cff97 are cff9x (Class II) atom types.
+
+    Two forcefield files, cvff.frc and cff91.frc, are needed to
+    generate LAMMPS data files for these three test files.  We do not
+    distribute these files with LAMMPS because Accelys sells them as
+    part of their molecular modeling packages.  If you are using the
+    msi2lmp tool, presumably you already have these Accelys files on
+    your system.  You can place copies of the files in the
+    force_field_files sub-dir or point to them directly (see
+    command-line switch info below).
+
+   To run the test cases from one of the test-case dirs, you would:
+
+   % setenv BIOSYM_LIBRARY ../force_field_files
+   % ../src/msi2lmp.exe nylon -class I -frc cvff > data.nylon
+   % ../src/msi2lmp.exe crambin -class I -frc cvff > data.crambin
+   % ../src/msi2lmp.exe phen3_cff97 -class II -frc cff91 > data.phen3_cff97
+
+   Three files should be generated: data.nylon, data.crambin
+   and data.phen3_cff97. These can be compared against 
+   data.x in the directory correct. If there are differences, 
+   first recompile the program with no optimization and try again.
+   If there are still differences, send email to jec@mayo.edu
+
+   Note: you will see many "Unable to find..." parameters messages
+         in the phen3_cff97 test case. Most of those parameters 
+         exist in cff95.frc, but not in cff91.frc
+
+ 3. To run the program
+
+   The program is started by supplying information at the command prompt
+   according to the usage described below.  
+
+   USAGE: msi2lmp.exe ROOTNAME {-print #} {-class #} {-frc FRC_FILE} > DATA_FILE
+
+   -- msi2lmp.exe is the name of the executable
+   -- ROOTNAME is the base name of the .car and .mdf files
+   -- -print 
+	 # is the print level  0 - silent except for error messages
+	                       1 - minimal (default)
+                               2 - verbose (usual for developing and
+                                   checking new data files for consistency)
+   -- -class 
+         # is the class of forcefield to use (I  = Class I e.g., CVFF)
+		  			     (II = Class II e.g., CFFx )
+      default is -class I
+
+   -- -frc   - specifies name of the forcefield file (e.g., cff91)
+ 
+     If the name includes a hard wired directory (i.e., if the name
+     starts with . or /), then the name is used alone. Otherwise,
+     the program looks for the forcefield file in $BIOSYM_LIBRARY.
+     If $BIOSYM_LIBRARY is not set, then the current directory is 
+     used.
+
+     If the file name does not include a dot after the first
+     character, then .frc is appended to the name.
+
+     For example,  -frc cvff (assumes cvff.frc is in $BIOSYM_LIBRARY
+                              or .)
+
+                   -frc cff/cff91 (assumes cff91.frc is in 
+                                   $BIOSYM_LIBRARY/cff or ./cff)
+
+                   -frc /usr/local/biosym/forcefields/cff95 (absolute
+                                                             location)
+
+     By default, the program uses $BIOSYM_LIBRARY/cvff.frc
+
+  -- the LAMMPS data file is written to standard out; commentary
+     is written to standard error.
+
+
+****************************************************************
+*
+* Msi2lmp3
+*
+* This is the third version of a program that generates a LAMMPS
+* data file based on the information in MSI .car (atom
+* coordinates), .mdf (molecular topology) and .frc (forcefield) 
+* files. The .car and .mdf files are specific to a molecular
+* system while the .frc file is specific to a forcefield version.
+* The only coherency needed between .frc and .car/.mdf files are
+* the atom types. 
+*
+* The first version was written by Steve Lustig at Dupont, but
+* required using Discover to derive internal coordinates and
+* forcefield parameters
+*
+* The second version was written by Michael Peachey while an
+* intern in the Cray Chemistry Applications Group managed
+* by John Carpenter. This version derived internal coordinates
+* from the mdf file and looked up parameters in the frc file
+* thus eliminating the need for Discover.
+*
+* The third version was written by John Carpenter to optimize
+* the performance of the program for large molecular systems
+* (the original  code for deriving atom numbers was quadratic in time)
+* and to make the program fully dynamic. The second version used
+* fixed dimension arrays for the internal coordinates.
+*
+* John Carpenter can be contacted by sending email to
+* jec@mayo.edu
+*
+* November 2000

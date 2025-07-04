@@ -1,0 +1,239 @@
+ LAMMPS 2001 (Nov 2001)
+# LJ system with NVE ensemble
+# do minimization 1st, followed by run
+ Units lj
+ Maximum cutoff   2.500000000000000     
+ Neighbor  0.3000000000000000                1           1           5
+            1
+ Read data data.lj
+ 3-d grid of procs =           4           2           2
+ Extra params: Extra own,ghost,neigh,buf
+      1.50      1.50      1.50      1.50
+ Atom arrays: Max own,ghost,atom,buf
+      1000      1261      2261     10000
+ Neighbor arrays: Max nonbond,bond,angle,dihedral,improper
+     10000         0         0         0         0
+ Create temp uniform    1.000000000000000            87287
+   Velocites set for this many atoms:        2048
+ Coulomb style none
+ Nonbond style lj/cutoff   2.500000000000000                1
+ Nonbond coeff           1           1   1.000000000000000     
+    1.000000000000000        1.122460000000000     
+ Nonbond coeff           1           2   1.095450000000000     
+    1.175000000000000        1.318890000000000     
+ Nonbond coeff           1           3   1.118030000000000     
+    1.075000000000000        1.206640000000000     
+ Nonbond coeff           2           2   1.200000000000000     
+    1.350000000000000        1.515320000000000     
+ Nonbond coeff           2           3   1.224740000000000     
+    1.250000000000000        1.403070000000000     
+ Nonbond coeff           3           3   1.250000000000000     
+    1.150000000000000        1.290830000000000     
+ Timestep  5.0000000000000000E-003
+ Temp control rescale   1.000000000000000        1.000000000000000     
+           20  2.0000000000000000E-002   1.000000000000000     
+ Thermo flag          50
+ Thermo style           1
+ Min flag          10
+ Minimize  1.0000000000000000E-002         100        1000
+ Max possible # of 1-2 neighbors =           0
+ Max possible # of 1-3 neighbors =           0
+ Max possible # of 1-4 neighbors =           0
+ Max allocation for special neighbors =           0
+ Max actual special neighbors =           0
+ Memory use per processor (MBytes) =   0.582
+
+ Step Temp E_nbond E_bond E_long E_total Pressure Volume
+       0  1.000000  1.328286  0.000000  0.000000  2.828286  7.505132  3413.3357
+
+====================================================================
+  Total PE  =         1.3283
+  E (bond)  =         0.0000          E (coulomb) =         0.0000
+  E (angle) =         0.0000          E (VDW)     =         1.3283
+  E (dih)   =         0.0000          E (long)    =         0.0000
+  E (imprp) =         0.0000
+====================================================================
+
+Truncated Newton CG with trust regions on   6144 unknowns
+
+     Iter      f(x)    ||grad||_inf   Delta     ||step||  f evals     ared        pred       CG iters
+    -----  -----------  ----------  ---------  ---------  -------  ----------  ----------    --------
+        0   1.3283E+00  7.4643E+01  7.838E+00                   1
+   <forward diffs>
+       10   4.9629E-01  1.9507E+01  1.003E+00  5.017E-01       60   3.688E-02   1.108E-02       2  TR
+       20   4.0848E-01  9.9216E+00  2.568E+00  1.284E+00      122   5.159E-03   2.979E-03       5  TR
+   (        4.0911E-01  2.5164E+01                            123      after reneighboring )
+       30   3.7495E-01  8.3376E+00  1.884E+00  9.418E-01      189   3.332E-03   1.496E-03       4  TR
+       40   3.4620E-01  3.9748E+00  1.205E+00  6.027E-01      266   3.528E-03   1.244E-03       5  TR
+   (        3.4620E-01  3.9748E+00                            267      after reneighboring )
+       50   3.3187E-01  4.0319E+00  6.268E-01  3.134E-01      341   1.748E-03   6.283E-04       4  TR
+       60   3.2389E-01  1.0627E+01  7.871E-01  3.936E-01      412   7.238E-04   3.452E-04       5  TR
+rej    70   3.1992E-01              2.072E-01  1.167E+00      499  -2.520E-03   8.568E-04       8  TR
+       80   3.1168E-01  1.0102E+00  3.974E-01  1.987E-01      579   7.700E-04   2.568E-04       5  TR
+       90   3.0934E-01  1.1846E+01  8.053E-01  8.053E-01      645   1.181E-04   3.807E-04       8  TR
+   (        3.0934E-01  1.1846E+01                            646      after reneighboring )
+      100   3.0390E-01  2.0717E+00  3.483E-01  1.742E-01      739   7.789E-04   2.508E-04       4  TR
+
+ Final ||g||_inf =   2.071747314753368     
+ Total # of iterations =         100
+ Total # of force evals =         739
+ Stopping: Max number iterations reached
+
+====================================================================
+  Total PE  =         0.3039
+  E (bond)  =         0.0000          E (coulomb) =         0.0000
+  E (angle) =         0.0000          E (VDW)     =         0.3039
+  E (dih)   =         0.0000          E (long)    =         0.0000
+  E (imprp) =         0.0000
+====================================================================
+
+ Loop time:   2.639264671312499      on          16 procs for        2048 atoms
+
+ Nbond time/%:       0.225773       8.5544
+ Nay-1 time/%:       0.016063       0.6086
+ Exch  time/%:       0.016063       0.6086
+ Comm  time/%:       0.592669      22.4558
+ Fcomm time/%:       0.315094      11.9387
+ I/O   time/%:       0.000000       0.0000
+ Other time/%:       1.457541      55.2253
+
+ Nbond time:       0.2258 ave       0.2466 max       0.2071 min
+  Histogram:    3    1    1    2    1    1    3    2    0    2
+ Nay-1 time:       0.0161 ave       0.0219 max       0.0034 min
+  Histogram:    5    0    0    0    0    0    0    0    0   11
+ Exch  time:       0.0161 ave       0.0219 max       0.0034 min
+  Histogram:    5    0    0    0    0    0    0    0    0   11
+ Comm  time:       0.5927 ave       0.6196 max       0.5590 min
+  Histogram:    1    2    1    0    1    3    0    6    1    1
+ Fcomm time:       0.3151 ave       0.3248 max       0.3046 min
+  Histogram:    2    1    1    3    1    1    1    2    1    3
+ I/O   time:       0.0000 ave       0.0000 max       0.0000 min
+  Histogram:   16    0    0    0    0    0    0    0    0    0
+ Other time:       1.4575 ave       1.5269 max       1.4171 min
+  Histogram:    3    1    4    3    1    0    0    2    0    2
+
+ Nlocal:         128.0000 ave     139.0000 max     119.0000 min
+  Histogram:    2    1    3    2    1    1    1    3    0    2
+ Nghost:         403.0625 ave     418.0000 max     379.0000 min
+  Histogram:    1    1    0    0    2    2    2    5    2    1
+ Neighs:         738.7500 ave     816.0000 max     686.0000 min
+  Histogram:    4    1    1    2    2    3    1    0    0    2
+ Nswaps:         403.0625 ave     427.0000 max     377.0000 min
+  Histogram:    1    2    1    3    1    0    3    1    2    2
+
+ Total # of neighbors =       11820
+ Ave neighs/atom =    5.771484
+ Ave nspecs/atom =    0.000000
+ Number of reneighborings =          14
+ Dangerous reneighborings =           0
+
+ Actual extra params: Extra own,ghost,neigh,buf
+      1.50      1.50      1.50      1.50
+ Optimal extra params: Extra own,ghost,neigh,buf
+      1.50      0.53      1.50      1.50
+ Max # of local atoms =         160 out of        1000
+ Max # of ghost atoms =         382 out of        1261
+ Max in neighbor list =        1028 out of       10000
+ Max in swap list =         433 out of        1261
+ Max atoms exchanged =          34
+ Max atoms in border =          92 out of        3333
+ Max use of comm buffers =         276 out of       10000
+ Max # of bonds/atom =           0
+ Max # of angles/atom =           0
+ Max # of dihedrals/atom =           0
+ Max # of impropers/atom =           0
+ Max in bond list =           0 out of           0
+ Max in angle list =           0 out of           0
+ Max in dihedral list =           0 out of           0
+ Max in improper list =           0 out of           0
+ Max # of neighbor bins =        1960
+ Bins in stencil =          62
+ # of swaps =           6 Needs =           1           1           1
+ Cutneigh =   1.815320000000000     
+ Cut/Box =  0.4822662251321349       0.2411331125660674     
+   0.2411331125660674     
+ Run         500
+ Max possible # of 1-2 neighbors =           0
+ Max possible # of 1-3 neighbors =           0
+ Max possible # of 1-4 neighbors =           0
+ Max allocation for special neighbors =           0
+ Max actual special neighbors =           0
+ Memory use per processor (MBytes) =   0.582
+
+ Step Temp E_nbond E_bond E_long E_total Pressure Volume
+       0  1.000000  0.303899  0.000000  0.000000  1.803899  3.843124  3413.3357
+      50  0.908776  1.596176  0.000000  0.000000  2.959341  8.959897  3413.3357
+     100  0.989605  1.696206  0.000000  0.000000  3.180614  9.447392  3413.3357
+     150  0.975720  1.717131  0.000000  0.000000  3.180711  9.506812  3413.3357
+     200  0.995935  1.719746  0.000000  0.000000  3.213648  9.489766  3413.3357
+     250  0.988526  1.730723  0.000000  0.000000  3.213512  9.548024  3413.3357
+     300  0.992716  1.724388  0.000000  0.000000  3.213463  9.545811  3413.3357
+     350  0.995906  1.719628  0.000000  0.000000  3.213487  9.525302  3413.3357
+     400  0.985375  1.735530  0.000000  0.000000  3.213592  9.527791  3413.3357
+     450  0.992769  1.724255  0.000000  0.000000  3.213407  9.542826  3413.3357
+     500  1.007650  1.742576  0.000000  0.000000  3.254051  9.592713  3413.3357
+ Loop time:   1.176979166250000      on          16 procs for        2048 atoms
+
+ Nbond time/%:       0.135496      11.5122
+ Nay-1 time/%:       0.102081       8.6732
+ Exch  time/%:       0.016574       1.4082
+ Comm  time/%:       0.252627      21.4640
+ Fcomm time/%:       0.221864      18.8503
+ I/O   time/%:       0.000000       0.0000
+ Other time/%:       0.448337      38.0922
+
+ Nbond time:       0.1355 ave       0.1449 max       0.1290 min
+  Histogram:    2    2    2    4    1    2    1    0    0    2
+ Nay-1 time:       0.1021 ave       0.1090 max       0.0961 min
+  Histogram:    1    1    2    2    4    2    2    0    0    2
+ Exch  time:       0.0166 ave       0.0181 max       0.0148 min
+  Histogram:    1    1    1    2    2    1    4    0    3    1
+ Comm  time:       0.2526 ave       0.2603 max       0.2433 min
+  Histogram:    1    2    1    1    0    4    2    0    4    1
+ Fcomm time:       0.2219 ave       0.2306 max       0.2136 min
+  Histogram:    1    1    4    2    0    1    2    1    2    2
+ I/O   time:       0.0000 ave       0.0000 max       0.0000 min
+  Histogram:   16    0    0    0    0    0    0    0    0    0
+ Other time:       0.4483 ave       0.4719 max       0.4233 min
+  Histogram:    1    1    2    2    1    2    4    1    0    2
+
+ Nlocal:         128.0000 ave     136.0000 max     120.0000 min
+  Histogram:    1    1    1    2    3    3    2    0    1    2
+ Nghost:         420.6875 ave     429.0000 max     407.0000 min
+  Histogram:    2    0    1    0    1    3    1    2    3    3
+ Neighs:         729.3750 ave     807.0000 max     672.0000 min
+  Histogram:    1    1    0    5    6    1    1    0    0    1
+ Nswaps:         420.6875 ave     438.0000 max     400.0000 min
+  Histogram:    1    1    2    1    1    2    3    3    1    1
+
+ Total # of neighbors =       11670
+ Ave neighs/atom =    5.698242
+ Ave nspecs/atom =    0.000000
+ Number of reneighborings =          64
+ Dangerous reneighborings =           0
+
+ Actual extra params: Extra own,ghost,neigh,buf
+      1.50      1.50      1.50      1.50
+ Optimal extra params: Extra own,ghost,neigh,buf
+      1.50      0.55      1.50      1.50
+ Max # of local atoms =         146 out of        1000
+ Max # of ghost atoms =         418 out of        1261
+ Max in neighbor list =         857 out of       10000
+ Max in swap list =         453 out of        1261
+ Max atoms exchanged =           7
+ Max atoms in border =          99 out of        3333
+ Max use of comm buffers =         297 out of       10000
+ Max # of bonds/atom =           0
+ Max # of angles/atom =           0
+ Max # of dihedrals/atom =           0
+ Max # of impropers/atom =           0
+ Max in bond list =           0 out of           0
+ Max in angle list =           0 out of           0
+ Max in dihedral list =           0 out of           0
+ Max in improper list =           0 out of           0
+ Max # of neighbor bins =        1960
+ Bins in stencil =          62
+ # of swaps =           6 Needs =           1           1           1
+ Cutneigh =   1.815320000000000     
+ Cut/Box =  0.4822662251321349       0.2411331125660674     
+   0.2411331125660674     

@@ -1,0 +1,35 @@
+# Makefile for Inst cluster liberty
+
+SHELL = /bin/sh
+
+# System-specific settings
+
+F90 =		mpif90
+F90FLAGS =	-O -w
+CC =		mpicc
+CCFLAGS =	-O -DFFT_FFTW -I/home/sjplimp/fftw/fftw
+LINK =		mpif90
+LINKFLAGS =	-O -L/home/sjplimp/fftw/fftw/.libs
+USRLIB =	-lfftw
+SYSLIB =	
+SIZE =		size
+
+# Link rule
+
+$(EXE):	$(OBJ)
+	$(LINK) $(LINKFLAGS) $(OBJ) $(USRLIB) $(SYSLIB) -o $(EXE)
+	$(SIZE) $(EXE)
+
+# Compilation rules
+
+.f.o:
+	@cp $< $*.F
+	$(F90) $(F90FLAGS) -c $*.F
+	@rm $*.F
+
+.c.o:
+	$(CC) $(CCFLAGS) -c $<
+
+# Individual dependencies
+
+include Makefile.depend

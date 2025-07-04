@@ -1,0 +1,188 @@
+ LAMMPS 2001 (Nov 2001)
+# Single liquid-crystal molecule
+# nonperiodic
+ Units real
+ Periodicity 3*1
+ Neighbor 0.5,  1,  20,  0,  1
+ Coulomb style cutoff 5.
+ Nonbond style lj/cutoff 5.,  0
+ Mixing style arithmetic
+ Read data data.lc.small.nonperiodic
+ Max # bonds/atom = 4
+ Max # angles/atom = 6
+ Max # dihedrals/atom = 24
+ Max # impropers/atom = 4
+ 3-d grid of procs = 3*1
+ Extra params: Extra own,ghost,neigh,buf
+      1.00      1.50      1.50      1.50
+ Atom arrays: Max own,ghost,atom,buf
+      1000      1326      2326     10000
+ Neighbor arrays: Max nonbond,bond,angle,dihedral,improper
+     10000       265       450       655       185
+ Create temp uniform  300.,  492895
+   Velocites set for this many atoms: 250
+ Special bonds 2*0.E+0,  0.40000000000000002
+ Timestep 1.
+ Thermo flag 100
+#dump atoms	10 dump.lc.small.nonperiodic
+ Run 1000
+ Max possible # of 1-2 neighbors = 4
+ Max possible # of 1-3 neighbors = 8
+ Max possible # of 1-4 neighbors = 20
+ Max allocation for special neighbors = 22
+ Max actual special neighbors = 22
+ Memory use per processor (MBytes) =   1.379
+ 
+ --------------- Step        0 ---- CPU =      0.0000 (sec) ---------------
+ Total E =       334.5313 Total KE=       223.5590 Temp    =       300.0000
+ Total PE=       110.9723 E_bond  =        54.9680 E_angle =        44.7616
+ E_dihed =        32.1346 E_impr  =         0.1234 E_vdwl  =        32.4776
+ E_coul  =       -53.4928 E_long  =         0.0000 Press   =     -8928.7505
+ 
+ --------------- Step      100 ---- CPU =      0.7924 (sec) ---------------
+ Total E =       277.9548 Total KE=       149.7899 Temp    =       201.0072
+ Total PE=       128.1649 E_bond  =        49.6909 E_angle =        86.7626
+ E_dihed =        46.1879 E_impr  =        11.1538 E_vdwl  =        63.4082
+ E_coul  =      -129.0385 E_long  =         0.0000 Press   =      4870.0220
+ 
+ --------------- Step      200 ---- CPU =      1.5803 (sec) ---------------
+ Total E =       276.6814 Total KE=       126.9666 Temp    =       170.3799
+ Total PE=       149.7148 E_bond  =        80.8063 E_angle =        83.7555
+ E_dihed =        61.5953 E_impr  =        12.0052 E_vdwl  =        41.7822
+ E_coul  =      -130.2296 E_long  =         0.0000 Press   =     -4253.9354
+ 
+ --------------- Step      300 ---- CPU =      2.3520 (sec) ---------------
+ Total E =       284.5828 Total KE=       139.0249 Temp    =       186.5614
+ Total PE=       145.5579 E_bond  =        54.7756 E_angle =        81.6541
+ E_dihed =        64.3492 E_impr  =        14.8426 E_vdwl  =        59.1153
+ E_coul  =      -129.1790 E_long  =         0.0000 Press   =      3857.1317
+ 
+ --------------- Step      400 ---- CPU =      3.1173 (sec) ---------------
+ Total E =       262.9255 Total KE=       155.1489 Temp    =       208.1986
+ Total PE=       107.7766 E_bond  =        50.9458 E_angle =        77.6797
+ E_dihed =        66.3342 E_impr  =        13.3585 E_vdwl  =        49.8645
+ E_coul  =      -150.4062 E_long  =         0.0000 Press   =     -1185.3767
+ 
+ --------------- Step      500 ---- CPU =      3.8748 (sec) ---------------
+ Total E =       247.7456 Total KE=       149.4268 Temp    =       200.5199
+ Total PE=        98.3188 E_bond  =        52.2258 E_angle =        85.3235
+ E_dihed =        63.5436 E_impr  =        11.6085 E_vdwl  =        51.0575
+ E_coul  =      -165.4401 E_long  =         0.0000 Press   =       766.4782
+ 
+ --------------- Step      600 ---- CPU =      4.6404 (sec) ---------------
+ Total E =       235.3567 Total KE=       148.0712 Temp    =       198.7009
+ Total PE=        87.2855 E_bond  =        66.9962 E_angle =        75.2234
+ E_dihed =        59.8603 E_impr  =        14.2521 E_vdwl  =        50.5101
+ E_coul  =      -179.5566 E_long  =         0.0000 Press   =     -1403.1568
+ 
+ --------------- Step      700 ---- CPU =      5.3922 (sec) ---------------
+ Total E =       270.0755 Total KE=       146.4064 Temp    =       196.4668
+ Total PE=       123.6691 E_bond  =        58.7108 E_angle =        79.4900
+ E_dihed =        63.7917 E_impr  =        15.5699 E_vdwl  =        51.0783
+ E_coul  =      -144.9716 E_long  =         0.0000 Press   =     -1404.1911
+ 
+ --------------- Step      800 ---- CPU =      6.2224 (sec) ---------------
+ Total E =       286.0422 Total KE=       146.8967 Temp    =       197.1247
+ Total PE=       139.1455 E_bond  =        48.7552 E_angle =        81.6756
+ E_dihed =        59.1920 E_impr  =        15.9519 E_vdwl  =        59.6796
+ E_coul  =      -126.1089 E_long  =         0.0000 Press   =      3028.1161
+ 
+ --------------- Step      900 ---- CPU =      7.1994 (sec) ---------------
+ Total E =       357.1544 Total KE=       146.9488 Temp    =       197.1947
+ Total PE=       210.2056 E_bond  =        56.8113 E_angle =        83.4915
+ E_dihed =        60.7730 E_impr  =        12.4327 E_vdwl  =        54.1849
+ E_coul  =       -57.4879 E_long  =         0.0000 Press   =     -1615.4128
+ 
+ --------------- Step     1000 ---- CPU =      7.9824 (sec) ---------------
+ Total E =       307.2954 Total KE=       144.7716 Temp    =       194.2731
+ Total PE=       162.5238 E_bond  =        57.5162 E_angle =        83.8080
+ E_dihed =        58.6409 E_impr  =        15.4798 E_vdwl  =        55.3974
+ E_coul  =      -108.3185 E_long  =         0.0000 Press   =      1209.2715
+ 
+ Loop time: 7.9830330000004324  on 1  procs for 250  atoms
+ 
+ Nbond time/%:       2.643102      33.1090
+ Bond  time/%:       0.259493       3.2506
+ Angle time/%:       1.294361      16.2139
+ Dihed time/%:       2.509523      31.4357
+ Impro time/%:       0.708011       8.8689
+ Nay-1 time/%:       0.249751       3.1285
+ Nay-2 time/%:       0.062162       0.7787
+ Exch  time/%:       0.009199       0.1152
+ Comm  time/%:       0.014058       0.1761
+ Fcomm time/%:       0.014108       0.1767
+ I/O   time/%:       0.000000       0.0000
+ Other time/%:       0.219265       2.7466
+ 
+ Nbond time:       2.6431 ave       2.6431 max       2.6431 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Bond  time:       0.2595 ave       0.2595 max       0.2595 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Angle time:       1.2944 ave       1.2944 max       1.2944 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Dihed time:       2.5095 ave       2.5095 max       2.5095 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Impro time:       0.7080 ave       0.7080 max       0.7080 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nay-1 time:       0.2498 ave       0.2498 max       0.2498 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nay-2 time:       0.0622 ave       0.0622 max       0.0622 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Exch  time:       0.0092 ave       0.0092 max       0.0092 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Comm  time:       0.0141 ave       0.0141 max       0.0141 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Fcomm time:       0.0141 ave       0.0141 max       0.0141 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ I/O   time:       0.0000 ave       0.0000 max       0.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Other time:       0.2193 ave       0.2193 max       0.2193 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ 
+ Nlocal:         250.0000 ave     250.0000 max     250.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nghost:           0.0000 ave       0.0000 max       0.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nbonds:         265.0000 ave     265.0000 max     265.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nangle:         450.0000 ave     450.0000 max     450.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Ndihed:         655.0000 ave     655.0000 max     655.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nimpro:         185.0000 ave     185.0000 max     185.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Neighs:        3345.0000 ave    3345.0000 max    3345.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nspecs:        2650.0000 ave    2650.0000 max    2650.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ 
+ Total # of neighbors = 3345
+ Ave neighs/atom =   13.380000
+ Ave nspecs/atom =   10.600000
+ Number of reneighborings = 50
+ Dangerous reneighborings = 50
+ 
+ Actual extra params: Extra own,ghost,neigh,buf
+      1.00      1.50      1.50      1.50
+ Optimal extra params: Extra own,ghost,neigh,buf
+      1.00      0.01      1.50      1.50
+ Max # of local atoms = 250  out of 1000
+ Max # of ghost atoms = 0  out of 1326
+ Max in neighbor list = 3785  out of 10000
+ Max in swap list = 0  out of 1326
+ Max atoms exchanged = 0
+ Max atoms in border = 0  out of 3333
+ Max use of comm buffers = 0  out of 10000
+ Max # of bonds/atom = 4
+ Max # of angles/atom = 6
+ Max # of dihedrals/atom = 24
+ Max # of impropers/atom = 4
+ Max in bond list = 265  out of 265
+ Max in angle list = 450  out of 450
+ Max in dihedral list = 655  out of 655
+ Max in improper list = 185  out of 185
+ Max # of neighbor bins = 2400
+ Bins in stencil = 62
+ # of swaps = 0  Needs = 3*0
+ Cutneigh = 5.5
+ Cut/Box = 0.13336400194446965,  0.48643240691351142,  0.33173118285199982

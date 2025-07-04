@@ -1,0 +1,86 @@
+LAMMPS 2001 examples
+
+The input and sample output files are in several directories.  Each
+test case has an input script (in.*), an input data file (data.*), and
+one ot more logfile outputs (log.*).  The suffix on the logfiles gives
+the machine and # of processors it was run on.
+
+These are the machines for which results are included:
+
+sgi = SGI O2 workstation, R10000 proc
+janus = Intel Tflops machine, 333 MHz Pentium procs, fast proprietary network
+ross = CPlant cluster, 500 MHz DEC Alpha EV6 procs, Myrinet network
+
+** lj
+
+2048-atom ternary Lennard Jones mixture
+data file created using tools/setup_lj.f
+
+in.lj.nve		baseline NVE ensemble
+in.lj.nvt		NVT ensemble
+in.lj.npt		NPT ensemble
+in.lj.fix		temperature rescaling via "fix style" and "assign fix"
+in.lj.langevin		Langevin temperature control
+in.lj.min		a minimization, followed by a dynamics run
+in.lj.neighbor		N^2 neighboring for NPT, instead of binning
+in.lj.neighbor_newton	N^2 neighboring with newton flag off in NPT simulation
+in.lj.newton		turn newton flag off in NPT simulation
+in.lj.volume		use "volume control" to stretch simulation box
+in.lj.volume_npt	use "volume control" with constant pressure
+
+** class2
+
+23-atom phenyalanine molecule with MSI/Biosym cff95 class 2 force field
+see data.class2 for listing of force field parameters
+non-periodic, isolated molecule
+
+in.class2.newton3	default newton flag = 3 (fully on)
+in.class2.newton0	newton flag = 0 (fully off)
+in.class2.newton1	newton flag = 1 (off for nonbond)
+in.class2.newton2	newton flag = 2 (off for bonded terms)
+
+** lc
+
+250-atom single liquid-crystal molecule (data.lc.small)
+6750-atom collection of 27 molecules (data.lc.big), a 3x3x3 array
+	created via tools/replicate.c program
+
+in.lc.small.periodic	one molecule in periodic box
+in.lc.small.nonperiodic	one molecule in vacuum (non-periodic)
+in.lc.small.restart.first  do a run that creates restart files
+in.lc.small.restart.second  read one of the restart files and redo the run
+in.lc.small.min		minimize one nonperiodic molecule, then dynamics
+in.lc.big.cutoff	big system with a Coulombic cutoff
+in.lc.big.ewald		big system with Ewald summation
+in.lc.big.pppm		big system with FFT-based particle-mesh Ewald
+in.lc.big.respa		big system with rRESPA turned on
+in.lc.big.shake		big system with SHAKE fix applied to some bonds
+in.lc.big.fixes		thermostat middle layer of atoms versus upper/lower
+			(also shows how to write/use a diagnostic file
+			if LAMMPS is compiled with diagnostic_temp_molecules.f
+			the run will measure temperature of different
+			layers and print it in log file)
+
+** polymer
+
+simulations of idealized bead-spring polymer chains
+data files created with tools/setup_chain.f using def.* files
+soft potentials are used initially to untangle the chains
+the chains are modeled with LJ and FENE potentials
+
+in.polymer.chain.a	16 50-mer chains
+in.polymer.chain.ab	mixture of 2 chain types with different bead sizes
+			and some free monomers
+
+** flow
+
+2d LJ system, periodic in x, atomic walls in y
+contraints are used to induce flow in the x-direction (flow thru a channel)
+data files created with tools/setup_flow_2d.f
+
+in.flow.cold		Couette flow by moving cold upper wall atoms
+in.flow.warm		Couette flow by moving warm upper wall atoms
+in.flow.poiss		Poiselle flow by giving force kick to flow atoms
+in.flow.hoover		thermostat flow atoms with Hoover/drag fix
+in.flow.langevin	thermostat flow atoms with Langevin fix
+in.flow.ave		squeeze inward with averaged forces on wall atoms

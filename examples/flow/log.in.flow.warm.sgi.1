@@ -1,0 +1,170 @@
+ LAMMPS 2001 (Nov 2001)
+# 2-d LJ Couette flow simulation
+# warm upper wall moving in +x
+ Units lj
+ Dimension 2
+ Periodicity 0,  1,  0
+ Newton flag 0
+ Maximum cutoff 1.12246
+ Neighbor 0.29999999999999999,  2*1,  5,  1
+ Read data data.flow.warm
+ Max # bonds/atom = 1
+ 3-d grid of procs = 3*1
+ Extra params: Extra own,ghost,neigh,buf
+      1.00      1.50      1.50      1.50
+ Atom arrays: Max own,ghost,atom,buf
+      1000      7575      8575     10000
+ Neighbor arrays: Max nonbond,bond,angle,dihedral,improper
+     11302        40         0         0         0
+# flow atom potentials
+ Coulomb style none
+ Nonbond style lj/cutoff 1.12246,  1
+ Nonbond coeff 2*1,  2*1.,  1.12246
+ Nonbond coeff 1,  2,  2*1.,  1.12246
+ Nonbond coeff 1,  3,  2*1.,  1.12246
+ Nonbond coeff 2*2,  2*1.,  1.12246
+ Nonbond coeff 2,  3,  2*1.,  1.12246
+ Nonbond coeff 2*3,  2*1.,  1.12246
+# wall potentials
+ Nonbond coeff 1,  4,  2*1.,  0.E+0
+ Nonbond coeff 1,  5,  2*1.,  0.E+0
+ Nonbond coeff 2,  4,  2*1.,  0.E+0
+ Nonbond coeff 2,  5,  2*1.,  0.E+0
+ Nonbond coeff 3,  4,  2*1.,  0.E+0
+ Nonbond coeff 3,  5,  2*1.,  0.E+0
+ Nonbond coeff 2*4,  2*1.,  0.E+0
+ Nonbond coeff 4,  5,  2*1.,  0.E+0
+ Nonbond coeff 2*5,  2*1.,  0.E+0
+ Bond style harmonic
+ Bond coeff 100.,  0.E+0
+# initialize wall atoms
+# warm atoms with temperature, fictitious atoms with constant v
+ Create group types 2,  3
+ Create temp uniform  1.,  23565
+   Velocites set for this many atoms: 40
+ Create group types 2*4
+   Velocites set for this many atoms: 20
+ Create group types 2*5
+   Velocites set for this many atoms: 20
+# initialize flow atoms
+ Create group remainder
+ Create temp uniform  1.,  482748
+   Velocites set for this many atoms: 170
+# constant v on fictitious wall atoms
+ Fix style 1  setforce 3*0.E+0
+ Assign fix 1  type 4
+ Assign fix 1  type 5
+# thermostat flow atoms
+ Fix style 2  rescale 2*1.,  20,  2.00000000000000004E-2,  1.
+ Assign fix 2  type 1
+# thermostat warm wall atoms
+ Fix style 3  rescale 2*1.,  20,  2.00000000000000004E-2,  1.
+ Assign fix 3  type 2
+ Assign fix 3  type 3
+ Timestep 3.00000000000000006E-3
+ Thermo flag 100
+ Thermo style 1
+#dump atoms	50 dump.flow.warm
+ Run 1000
+ 40  atoms assigned to fix 1
+ 170  atoms assigned to fix 2
+ 40  atoms assigned to fix 3
+ Max possible # of 1-2 neighbors = 1
+ Max possible # of 1-3 neighbors = 0
+ Max possible # of 1-4 neighbors = 0
+ Max allocation for special neighbors = 1
+ Max actual special neighbors = 1
+ Memory use per processor (MBytes) =   1.029
+ 
+ Step Temp E_nbond E_bond E_long E_total Pressure Volume
+       0  1.840000  0.000922  0.000000  0.000000  1.840922  9.986424    50.0006
+     100  1.855780  0.415523  1.632023  0.000000  3.903326 21.773696    50.3274
+     200  1.856186  0.406069  1.710040  0.000000  3.972294 20.577345    50.2178
+     300  1.857209  0.393389  1.844906  0.000000  4.095504 20.047691    50.3158
+     400  1.867557  0.371600  1.740856  0.000000  3.980014 19.811129    50.1717
+     500  1.856359  0.363383  1.721340  0.000000  3.941083 19.811109    50.1712
+     600  1.857422  0.240126  1.831904  0.000000  3.929452 15.417031    50.3183
+     700  1.859740  0.230353  1.738441  0.000000  3.828534 15.320029    50.1899
+     800  1.857010  0.226213  1.737773  0.000000  3.820996 15.339699    50.1750
+     900  1.856793  0.297339  1.714374  0.000000  3.868506 17.945391    50.2479
+    1000  1.860161  0.288625  1.701271  0.000000  3.850057 18.075269    50.1556
+ Loop time: 0.87107399999968038  on 1  procs for 250  atoms
+ 
+ Nbond time/%:       0.257665      29.5802
+ Bond  time/%:       0.052713       6.0515
+ Angle time/%:       0.012062       1.3847
+ Dihed time/%:       0.012646       1.4518
+ Impro time/%:       0.012161       1.3961
+ Nay-1 time/%:       0.150349      17.2602
+ Nay-2 time/%:       0.005978       0.6863
+ Exch  time/%:       0.017495       2.0084
+ Comm  time/%:       0.039535       4.5386
+ I/O   time/%:       0.000000       0.0000
+ Other time/%:       0.310470      35.6422
+ 
+ Nbond time:       0.2577 ave       0.2577 max       0.2577 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Bond  time:       0.0527 ave       0.0527 max       0.0527 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Angle time:       0.0121 ave       0.0121 max       0.0121 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Dihed time:       0.0126 ave       0.0126 max       0.0126 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Impro time:       0.0122 ave       0.0122 max       0.0122 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nay-1 time:       0.1503 ave       0.1503 max       0.1503 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nay-2 time:       0.0060 ave       0.0060 max       0.0060 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Exch  time:       0.0175 ave       0.0175 max       0.0175 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Comm  time:       0.0395 ave       0.0395 max       0.0395 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ I/O   time:       0.0000 ave       0.0000 max       0.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Other time:       0.3105 ave       0.3105 max       0.3105 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ 
+ Nlocal:         250.0000 ave     250.0000 max     250.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nghost:          43.0000 ave      43.0000 max      43.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nbonds:          40.0000 ave      40.0000 max      40.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Neighs:         502.0000 ave     502.0000 max     502.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nswaps:          43.0000 ave      43.0000 max      43.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nspecs:          80.0000 ave      80.0000 max      80.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ 
+ Total # of neighbors = 502
+ Ave neighs/atom =    2.008000
+ Ave nspecs/atom =    0.320000
+ Number of reneighborings = 112
+ Dangerous reneighborings = 0
+ 
+ Actual extra params: Extra own,ghost,neigh,buf
+      1.00      1.50      1.50      1.50
+ Optimal extra params: Extra own,ghost,neigh,buf
+      1.00      0.02      0.08      1.50
+ Max # of local atoms = 250  out of 1000
+ Max # of ghost atoms = 46  out of 7575
+ Max in neighbor list = 516  out of 11302
+ Max in swap list = 46  out of 7575
+ Max atoms exchanged = 0
+ Max atoms in border = 26  out of 3333
+ Max use of comm buffers = 78  out of 10000
+ Max # of bonds/atom = 1
+ Max # of angles/atom = 0
+ Max # of dihedrals/atom = 0
+ Max # of impropers/atom = 0
+ Max in bond list = 40  out of 40
+ Max in angle list = 0  out of 0
+ Max in dihedral list = 0  out of 0
+ Max in improper list = 0  out of 0
+ Max # of neighbor bins = 14896
+ Bins in stencil = 25
+ # of swaps = 2  Needs = 1,  2*0
+ Cutneigh = 1.4224600000000001
+ Cut/Box = 8.99643168401493137E-2,  8.96851785188891582E-2,  7.1122998940184727

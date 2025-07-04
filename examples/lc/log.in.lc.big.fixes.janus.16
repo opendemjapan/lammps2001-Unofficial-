@@ -1,0 +1,220 @@
+ LAMMPS 2001 (Nov 2001)
+# 3x3 array of liquid-crystal molecules
+# long-range Coulombics via PPPM, NPH
+# init temperature with middle layer hot (400K), top/bottom layer cool (300K)
+# thermostat each layer at 400K or 300K via rescale fixes
+# temperature initially drops as system equilibrates
+# if compile LAMMPS with diagnostic_temp_molecules.f, LAMMPS will print-out
+#   temperature of layers as simulation runs
+ Units real
+ Neighbor   2.000000000000000                1          20           0
+            1
+ Coulomb style pppm   10.00000000000000       1.0000000000000000E-004
+ Nonbond style lj/cutoff   10.00000000000000                0
+ Mixing style arithmetic
+ Read data data.lc.big
+ Max # bonds/atom =           4
+ Max # angles/atom =           6
+ Max # dihedrals/atom =          24
+ Max # impropers/atom =           4
+ 3-d grid of procs =           4           2           2
+ Extra params: Extra own,ghost,neigh,buf
+      1.50      1.50      1.50      1.50
+ Atom arrays: Max own,ghost,atom,buf
+      1000      5883      6883     10000
+ Neighbor arrays: Max nonbond,bond,angle,dihedral,improper
+    111524      4000      6000     24000      4000
+# bottom layer = molecules 1-9
+# middle layer = molecules 10-18
+# top layer = molecules 19-27
+ Create temp uniform    400.0000000000000             4762
+   Velocites set for this many atoms:        2250
+ Create temp uniform    300.0000000000000           598287
+   Velocites set for this many atoms:        2250
+ Create temp uniform    300.0000000000000            33785
+   Velocites set for this many atoms:        2250
+ Press control nose/hoover xyz 1.0 1.0 0.0001
+# fix middle layer at 400K, other 2 layers are remainder at 300K
+ Fix style           1 rescale   400.0000000000000     
+    400.0000000000000               10   10.00000000000000     
+   0.5000000000000000     
+ Fix style           2 rescale   300.0000000000000     
+    300.0000000000000               10   10.00000000000000     
+   0.5000000000000000     
+ Assign fix           1 molecule          10
+ Assign fix           1 molecule          11
+ Assign fix           1 molecule          12
+ Assign fix           1 molecule          13
+ Assign fix           1 molecule          14
+ Assign fix           1 molecule          15
+ Assign fix           1 molecule          16
+ Assign fix           1 molecule          17
+ Assign fix           1 molecule          18
+ Assign fix           2 remainder
+ Timestep   1.000000000000000     
+ Thermo flag          50
+# compute temp of molecules 10-18 and other = all the rest
+ Diagnostictemp_molecules           10none   10.00000000000000     
+    18.00000000000000       0.0000000000000000E+000  0.0000000000000000E+000
+   0.0000000000000000E+000
+ Run         100
+         2250 atoms assigned to fix           1
+         4500 atoms assigned to fix           2
+ Max possible # of 1-2 neighbors =           4
+ Max possible # of 1-3 neighbors =           8
+ Max possible # of 1-4 neighbors =          20
+ Max allocation for special neighbors =          22
+ Max actual special neighbors =          22
+ Actual PPPM grid =          20          10          15
+ PPPM G =  0.2058626312910260     
+ Expected RMS precision =  8.4185512515541045E-005
+ PPPM max grid size =        1300
+ PPPM max FFT size =         240
+ PPPM max buffer size =        1200
+ Memory use per processor (MBytes) =   3.061
+
+ --------------- Step        0 ---- CPU =      0.0000 (sec) ---------------
+ Total E =      6994.3425 Total KE=      6706.7693 Temp    =       333.3333
+ Total PE=       287.5731 E_bond  =      1484.1347 E_angle =      1208.5643
+ E_dihed =       867.6335 E_impr  =         3.3321 E_vdwl  =     -2484.1358
+ E_coul  =      8901.3298 E_long  =     -9693.2855 Press   =    -17964.6146
+ Volume  =    138327.7500
+
+Temp of requested & other molecules =         0    400.0000    300.0000
+Temp of requested & other molecules =        10    334.1836    259.8953
+Temp of requested & other molecules =        20    325.8780    245.0190
+Temp of requested & other molecules =        30    349.2496    264.3379
+Temp of requested & other molecules =        40    364.5996    276.9929
+ --------------- Step       50 ---- CPU =      7.4194 (sec) ---------------
+ Total E =     10381.2092 Total KE=      6798.5578 Temp    =       337.8953
+ Total PE=      3582.6514 E_bond  =      2478.3241 E_angle =      3005.0510
+ E_dihed =      1347.4224 E_impr  =       492.0214 E_vdwl  =     -2511.8543
+ E_coul  =      8523.1385 E_long  =     -9751.4517 Press   =     -9764.8679
+ Volume  =    138304.5142
+
+Temp of requested & other molecules =        50    401.8123    305.9368
+Temp of requested & other molecules =        60    389.1276    295.4129
+Temp of requested & other molecules =        70    398.0406    304.1577
+Temp of requested & other molecules =        80    409.3315    306.9106
+Temp of requested & other molecules =        90    400.4154    294.1713
+ --------------- Step      100 ---- CPU =     14.9722 (sec) ---------------
+ Total E =     10425.7184 Total KE=      6585.3803 Temp    =       327.3002
+ Total PE=      3840.3380 E_bond  =      2006.9448 E_angle =      3086.5703
+ E_dihed =      1503.1094 E_impr  =       604.8897 E_vdwl  =     -2140.9626
+ E_coul  =      8550.9518 E_long  =     -9771.1653 Press   =      6079.8206
+ Volume  =    138266.9448
+
+Temp of requested & other molecules =       100    391.3415    295.2795
+ Loop time:   14.98975733756250      on          16 procs for        6750 atoms
+
+ Nbond time/%:       7.323144      48.8543
+ Long  time/%:       2.723540      18.1693
+ Bond  time/%:       0.042511       0.2836
+ Angle time/%:       0.216666       1.4454
+ Dihed time/%:       0.478797       3.1942
+ Impro time/%:       0.130757       0.8723
+ Nay-1 time/%:       0.152381       1.0166
+ Nay-2 time/%:       0.002899       0.0193
+ Exch  time/%:       0.002458       0.0164
+ Comm  time/%:       0.291950       1.9477
+ Fcomm time/%:       0.322261       2.1499
+ I/O   time/%:       0.000000       0.0000
+ Other time/%:       3.302391      22.0310
+
+ Nbond time:       7.3231 ave       9.1852 max       5.8467 min
+  Histogram:    3    1    0    3    3    2    1    0    1    2
+ Long  time:       2.7235 ave       2.7239 max       2.7231 min
+  Histogram:    3    1    0    0    0    5    3    0    1    3
+ Bond  time:       0.0425 ave       0.0511 max       0.0362 min
+  Histogram:    3    1    2    1    4    2    0    1    0    2
+ Angle time:       0.2167 ave       0.2563 max       0.1878 min
+  Histogram:    3    1    1    4    1    2    1    0    2    1
+ Dihed time:       0.4788 ave       0.5690 max       0.4107 min
+  Histogram:    3    2    0    3    2    2    1    0    1    2
+ Impro time:       0.1308 ave       0.1898 max       0.0847 min
+  Histogram:    4    3    1    0    0    1    2    2    2    1
+ Nay-1 time:       0.1524 ave       0.1801 max       0.1317 min
+  Histogram:    2    2    2    2    1    3    1    1    1    1
+ Nay-2 time:       0.0029 ave       0.0038 max       0.0023 min
+  Histogram:    2    4    0    2    3    1    2    1    0    1
+ Exch  time:       0.0025 ave       0.0028 max       0.0023 min
+  Histogram:    4    1    1    2    3    2    0    0    2    1
+ Comm  time:       0.2920 ave       0.2995 max       0.2860 min
+  Histogram:    3    1    2    3    1    1    1    2    0    2
+ Fcomm time:       0.3223 ave       0.3514 max       0.2967 min
+  Histogram:    4    4    0    0    0    0    1    3    1    3
+ I/O   time:       0.0000 ave       0.0000 max       0.0000 min
+  Histogram:   16    0    0    0    0    0    0    0    0    0
+ Other time:       3.3024 ave       4.9632 max       1.2112 min
+  Histogram:    1    2    0    1    2    2    4    0    2    2
+
+ PPPM timing info:
+   Make_rho time =  0.2855824535624931     
+   Make_rho % of long time =   10.48570795038530     
+   Poisson time =   1.144530469312508     
+   Poisson % of long time =   42.02363307626036     
+   Electric_field time =  0.7223558045624912     
+   Electric_field % of long time =   26.52267990704966     
+   Brick2fft time per timestep =  7.5217440000017186E-004
+   Total brick2fft time =  7.5217440000017194E-002
+   Brick2fft % of long time =   2.761752687453603     
+   Fillbrick time per timestep =  1.2924873000002889E-003
+   Total fillbrick time =  0.1292487300000289     
+   Fillbrick % of long time =   4.745615211411920     
+   FFT time per timestep =  9.8858633999995504E-003
+   Total FFT time =  0.9885863399999550     
+   FFT % of long time =   36.29784503798817     
+   Setup time per timestep =  2.8355985000004579E-003
+   Total setup time =  0.2835598500000458     
+   Setup % of other time =   8.586500451907842     
+
+ Nlocal:         421.8750 ave     505.0000 max     363.0000 min
+  Histogram:    2    2    2    1    4    1    1    2    0    1
+ Nghost:        3872.3750 ave    4170.0000 max    3577.0000 min
+  Histogram:    2    0    4    2    0    2    0    2    2    2
+ Nbonds:         447.1875 ave     556.0000 max     368.0000 min
+  Histogram:    2    3    1    2    3    1    1    1    1    1
+ Nangle:         759.3750 ave     921.0000 max     645.0000 min
+  Histogram:    2    2    2    2    3    2    0    2    0    1
+ Ndihed:        1105.3125 ave    1331.0000 max     934.0000 min
+  Histogram:    2    3    1    1    2    3    1    0    2    1
+ Nimpro:         312.1875 ave     463.0000 max     196.0000 min
+  Histogram:    3    4    1    0    0    1    3    1    2    1
+ Neighs:       74511.2500 ave   95612.0000 max   58978.0000 min
+  Histogram:    3    1    1    2    4    1    1    1    1    1
+ Nswaps:        3872.3750 ave    4238.0000 max    3616.0000 min
+  Histogram:    1    2    4    2    2    1    1    2    0    1
+ Nspecs:        4471.8750 ave    5238.0000 max    3941.0000 min
+  Histogram:    2    2    2    2    3    2    0    2    0    1
+
+ Total # of neighbors =     1192180
+ Ave neighs/atom =  176.619259
+ Ave nspecs/atom =   10.600000
+ Number of reneighborings =           2
+ Dangerous reneighborings =           0
+
+ Actual extra params: Extra own,ghost,neigh,buf
+      1.50      1.50      1.50      1.50
+ Optimal extra params: Extra own,ghost,neigh,buf
+      1.50      1.09      1.30      1.50
+ Max # of local atoms =         505 out of        1000
+ Max # of ghost atoms =        3812 out of        5883
+ Max in neighbor list =       95612 out of      111524
+ Max in swap list =        4238 out of        5883
+ Max atoms exchanged =          16
+ Max atoms in border =        1185 out of        3333
+ Max use of comm buffers =        3555 out of       10000
+ Max # of bonds/atom =           4
+ Max # of angles/atom =           6
+ Max # of dihedrals/atom =          24
+ Max # of impropers/atom =           4
+ Max in bond list =         556 out of        4000
+ Max in angle list =         921 out of        6000
+ Max in dihedral list =        1351 out of       24000
+ Max in improper list =         463 out of        4000
+ Max # of neighbor bins =         900
+ Bins in stencil =          62
+ # of swaps =           6 Needs =           1           1           1
+ Cutneigh =   12.00000000000000     
+ Cut/Box =  0.5926794473282365       0.6957541338201036     
+   0.4849195478140119     

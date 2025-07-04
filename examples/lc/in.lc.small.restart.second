@@ -1,0 +1,15 @@
+# Single liquid-crystal molecule
+# use restart files, this is 2nd of 2 runs
+
+units		real
+neighbor	0.5 1 20 0 1
+
+coulomb style	cutoff 5.0
+nonbond style	lj/cutoff 5.0 0
+
+read restart	restart.lc.small.restart.500
+
+timestep	1.0
+thermo flag	100
+
+run		500

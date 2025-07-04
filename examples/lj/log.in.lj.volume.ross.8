@@ -1,0 +1,123 @@
+ LAMMPS 2001 (Nov 2001)
+# LJ system with NVE ensemble
+# apply volume control to expand box in x at high temperature
+ Units lj
+ Maximum cutoff   2.50000000000000     
+ Neighbor  0.300000000000000                1           1           5
+           1
+ Read data data.lj
+ 3-d grid of procs =           2           2           2
+ Extra params: Extra own,ghost,neigh,buf
+      1.50      1.50      1.50      1.50
+ Atom arrays: Max own,ghost,atom,buf
+      1000      1653      2653     10000
+ Neighbor arrays: Max nonbond,bond,angle,dihedral,improper
+     10592         0         0         0         0
+ Create temp uniform    5.00000000000000            87287
+   Velocites set for this many atoms:        2048
+ Coulomb style none
+ Nonbond style lj/cutoff   2.50000000000000                1
+ Nonbond coeff           1           1   1.00000000000000     
+   1.00000000000000        1.12246000000000     
+ Nonbond coeff           1           2   1.09545000000000     
+   1.17500000000000        1.31889000000000     
+ Nonbond coeff           1           3   1.11803000000000     
+   1.07500000000000        1.20664000000000     
+ Nonbond coeff           2           2   1.20000000000000     
+   1.35000000000000        1.51532000000000     
+ Nonbond coeff           2           3   1.22474000000000     
+   1.25000000000000        1.40307000000000     
+ Nonbond coeff           3           3   1.25000000000000     
+   1.15000000000000        1.29083000000000     
+ Timestep  5.000000000000000E-003
+ Temp control rescale   5.00000000000000        5.00000000000000     
+          20  2.000000000000000E-002   1.00000000000000     
+ Volume control linear x -9.0 9.0
+ Thermo flag          50
+ Thermo style           1
+ Run         500
+ Max possible # of 1-2 neighbors =           0
+ Max possible # of 1-3 neighbors =           0
+ Max possible # of 1-4 neighbors =           0
+ Max allocation for special neighbors =           0
+ Max actual special neighbors =           0
+ Memory use per processor (MBytes) =   0.623
+ 
+ Step Temp E_nbond E_bond E_long E_total Pressure Volume
+       0  5.000000  1.328286  0.000000  0.000000  8.828286  9.905130  3413.3357
+      50  4.650860  5.067840  0.000000  0.000000 12.044130 22.059771  3480.0632
+     100  5.000000  4.926651  0.000000  0.000000 12.426651 21.245504  3546.7908
+     150  5.071380  4.712672  0.000000  0.000000 12.319742 20.117613  3613.5183
+     200  5.000000  4.587711  0.000000  0.000000 12.087711 19.263445  3680.2458
+     250  4.997756  4.313476  0.000000  0.000000 11.810110 18.053435  3746.9733
+     300  5.018427  4.129099  0.000000  0.000000 11.656739 17.105147  3813.7008
+     350  4.815583  4.088459  0.000000  0.000000 11.311834 16.439876  3880.4283
+     400  5.000000  3.743251  0.000000  0.000000 11.243251 15.319701  3947.1558
+     450  4.969997  3.672904  0.000000  0.000000 11.127900 14.757369  4013.8833
+     500  5.000000  3.654417  0.000000  0.000000 11.154417 14.387919  4080.6108
+ Loop time:   3.22301125526428       on           8  procs for        2048  atom
+ s
+ 
+ Nbond time/%:       0.115661       3.5886
+ Nay-1 time/%:       0.110116       3.4166
+ Exch  time/%:       0.077154       2.3939
+ Comm  time/%:       1.126830      34.9620
+ Fcomm time/%:       0.758736      23.5412
+ I/O   time/%:       0.000000       0.0000
+ Other time/%:       1.034514      32.0978
+ 
+ Nbond time:       0.1157 ave       0.1271 max       0.1104 min
+  Histogram:    2    1    2    0    1    1    0    0    0    1
+ Nay-1 time:       0.1101 ave       0.1212 max       0.1022 min
+  Histogram:    1    2    1    0    1    1    0    0    1    1
+ Exch  time:       0.0772 ave       0.0783 max       0.0765 min
+  Histogram:    2    0    1    2    1    1    0    0    0    1
+ Comm  time:       1.1268 ave       1.1557 max       1.1091 min
+  Histogram:    1    2    2    0    1    0    0    1    0    1
+ Fcomm time:       0.7587 ave       0.7869 max       0.7408 min
+  Histogram:    1    1    1    1    2    1    0    0    0    1
+ I/O   time:       0.0000 ave       0.0000 max       0.0000 min
+  Histogram:    8    0    0    0    0    0    0    0    0    0
+ Other time:       1.0345 ave       1.0614 max       0.9948 min
+  Histogram:    1    1    0    0    0    2    0    1    2    1
+ 
+ Nlocal:         256.0000 ave     267.0000 max     248.0000 min
+  Histogram:    2    0    1    1    2    0    0    0    1    1
+ Nghost:         533.7500 ave     551.0000 max     513.0000 min
+  Histogram:    1    0    0    3    0    0    1    1    1    1
+ Neighs:        1136.1250 ave    1202.0000 max    1091.0000 min
+  Histogram:    1    2    2    0    1    0    0    0    0    2
+ Nswaps:         533.7500 ave     544.0000 max     524.0000 min
+  Histogram:    1    0    1    1    1    0    2    1    0    1
+ 
+ Total # of neighbors =        9089
+ Ave neighs/atom =    4.437988
+ Ave nspecs/atom =    0.000000
+ Number of reneighborings =         100
+ Dangerous reneighborings =         100
+ 
+ Actual extra params: Extra own,ghost,neigh,buf
+      1.50      1.50      1.50      1.50
+ Optimal extra params: Extra own,ghost,neigh,buf
+      1.50      0.55      0.24      1.50
+ Max # of local atoms =         272  out of        1000
+ Max # of ghost atoms =         572  out of        1653
+ Max in neighbor list =        1632  out of       10592
+ Max in swap list =         592  out of        1653
+ Max atoms exchanged =          20
+ Max atoms in border =         147  out of        3333
+ Max use of comm buffers =         441  out of       10000
+ Max # of bonds/atom =           0
+ Max # of angles/atom =           0
+ Max # of dihedrals/atom =           0
+ Max # of impropers/atom =           0
+ Max in bond list =           0  out of           0
+ Max in angle list =           0  out of           0
+ Max in dihedral list =           0  out of           0
+ Max in improper list =           0  out of           0
+ Max # of neighbor bins =        3136
+ Bins in stencil =          62
+ # of swaps =           6  Needs =           1           1           1
+ Cutneigh =   1.81532000000000     
+ Cut/Box =  0.201702222222222       0.241133112566067     
+  0.241133112566067     

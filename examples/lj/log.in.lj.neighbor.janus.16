@@ -1,0 +1,121 @@
+ LAMMPS 2001 (Nov 2001)
+# LJ system with NPT ensemble
+# use N^2 neighboring
+# slower than binning in in.lj.npt, but should give same answer
+ Units lj
+ Maximum cutoff   2.500000000000000     
+ Neighbor  0.3000000000000000                0           1           5
+            1
+ Read data data.lj
+ 3-d grid of procs =           4           2           2
+ Extra params: Extra own,ghost,neigh,buf
+      1.50      1.50      1.50      1.50
+ Atom arrays: Max own,ghost,atom,buf
+      1000      1261      2261     10000
+ Neighbor arrays: Max nonbond,bond,angle,dihedral,improper
+     10000         0         0         0         0
+ Create temp uniform    1.000000000000000            87287
+   Velocites set for this many atoms:        2048
+ Coulomb style none
+ Nonbond style lj/cutoff   2.500000000000000                1
+ Nonbond coeff           1           1   1.000000000000000     
+    1.000000000000000        1.122460000000000     
+ Nonbond coeff           1           2   1.095450000000000     
+    1.175000000000000        1.318890000000000     
+ Nonbond coeff           1           3   1.118030000000000     
+    1.075000000000000        1.206640000000000     
+ Nonbond coeff           2           2   1.200000000000000     
+    1.350000000000000        1.515320000000000     
+ Nonbond coeff           2           3   1.224740000000000     
+    1.250000000000000        1.403070000000000     
+ Nonbond coeff           3           3   1.250000000000000     
+    1.150000000000000        1.290830000000000     
+ Timestep  5.0000000000000000E-003
+ Temp control nose/hoover   1.000000000000000        1.000000000000000     
+    2.000000000000000     
+ Press control nose/hoover xyz 0.62928 0.62928 0.1
+ Thermo flag          50
+ Thermo style           1
+ Run         500
+ Max possible # of 1-2 neighbors =           0
+ Max possible # of 1-3 neighbors =           0
+ Max possible # of 1-4 neighbors =           0
+ Max allocation for special neighbors =           0
+ Max actual special neighbors =           0
+ Memory use per processor (MBytes) =   0.575
+
+ Step Temp E_nbond E_bond E_long E_total Pressure Volume
+       0  1.000000  1.328286  0.000000  0.000000  2.828286  7.505132  3413.3357
+      50  0.836285  1.441249  0.000000  0.000000  2.695676  8.183094  3454.8293
+     100  0.814805  1.163883  0.000000  0.000000  2.386091  6.670104  3580.8386
+     150  0.799430  0.869322  0.000000  0.000000  2.068468  4.954974  3785.6502
+     200  0.792653  0.676875  0.000000  0.000000  1.865855  3.755932  4063.2713
+     250  0.856484  0.540075  0.000000  0.000000  1.824801  2.859965  4411.9058
+     300  0.987747  0.476541  0.000000  0.000000  1.958162  2.364800  4833.6551
+     350  1.176322  0.440578  0.000000  0.000000  2.205062  2.016836  5335.9802
+     400  1.339151  0.392555  0.000000  0.000000  2.401282  1.714498  5929.6730
+     450  1.365267  0.288702  0.000000  0.000000  2.336602  1.246096  6627.1959
+     500  1.205514  0.203053  0.000000  0.000000  2.011324  0.869856  7435.7915
+ Loop time:   2.113537198875000      on          16 procs for        2048 atoms
+
+ Nbond time/%:       0.094357       4.4644
+ Nay-1 time/%:       0.503225      23.8096
+ Exch  time/%:       0.022997       1.0881
+ Comm  time/%:       0.247008      11.6870
+ Fcomm time/%:       0.204045       9.6542
+ I/O   time/%:       0.000000       0.0000
+ Other time/%:       1.041905      49.2967
+
+ Nbond time:       0.0944 ave       0.1026 max       0.0870 min
+  Histogram:    1    1    2    1    1    5    4    0    0    1
+ Nay-1 time:       0.5032 ave       0.5393 max       0.4547 min
+  Histogram:    2    0    1    1    1    3    2    3    1    2
+ Exch  time:       0.0230 ave       0.0261 max       0.0178 min
+  Histogram:    3    1    0    0    0    0    1    5    3    3
+ Comm  time:       0.2470 ave       0.2533 max       0.2412 min
+  Histogram:    1    1    2    2    3    2    1    1    2    1
+ Fcomm time:       0.2040 ave       0.2098 max       0.1939 min
+  Histogram:    1    0    1    0    3    1    3    1    3    3
+ I/O   time:       0.0000 ave       0.0000 max       0.0000 min
+  Histogram:   16    0    0    0    0    0    0    0    0    0
+ Other time:       1.0419 ave       1.1023 max       0.9947 min
+  Histogram:    1    3    2    0    3    3    2    0    0    2
+
+ Nlocal:         128.0000 ave     140.0000 max     117.0000 min
+  Histogram:    3    1    2    1    1    1    4    0    0    3
+ Nghost:         293.5000 ave     316.0000 max     279.0000 min
+  Histogram:    3    2    0    3    4    2    0    1    0    1
+ Neighs:         272.1875 ave     333.0000 max     220.0000 min
+  Histogram:    2    2    1    1    3    2    1    1    2    1
+ Nswaps:         293.5000 ave     323.0000 max     261.0000 min
+  Histogram:    1    1    1    1    3    3    2    2    1    1
+
+ Total # of neighbors =        4355
+ Ave neighs/atom =    2.126465
+ Ave nspecs/atom =    0.000000
+ Number of reneighborings =          74
+ Dangerous reneighborings =           3
+
+ Actual extra params: Extra own,ghost,neigh,buf
+      1.50      1.50      1.50      1.50
+ Optimal extra params: Extra own,ghost,neigh,buf
+      1.50      0.51      1.50      1.50
+ Max # of local atoms =         160 out of        1000
+ Max # of ghost atoms =         361 out of        1261
+ Max in neighbor list =        1000 out of       10000
+ Max in swap list =         419 out of        1261
+ Max atoms exchanged =          38
+ Max atoms in border =          88 out of        3333
+ Max use of comm buffers =         352 out of       10000
+ Max # of bonds/atom =           0
+ Max # of angles/atom =           0
+ Max # of dihedrals/atom =           0
+ Max # of impropers/atom =           0
+ Max in bond list =           0 out of           0
+ Max in angle list =           0 out of           0
+ Max in dihedral list =           0 out of           0
+ Max in improper list =           0 out of           0
+ # of swaps =           6 Needs =           1           1           1
+ Cutneigh =   1.815320000000000     
+ Cut/Box =  0.3720238503007958       0.1860119251503979     
+   0.1860119251503979     

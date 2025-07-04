@@ -1,0 +1,53 @@
+# 3x3 array of liquid-crystal molecules
+# long-range Coulombics via PPPM, NPH
+# init temperature with middle layer hot (400K), top/bottom layer cool (300K)
+# thermostat each layer at 400K or 300K via rescale fixes
+# temperature initially drops as system equilibrates
+# if compile LAMMPS with diagnostic_temp_molecules.f, LAMMPS will print-out
+#   temperature of layers as simulation runs
+
+units		real
+neighbor	2.0 1 20 0 1
+
+coulomb style	pppm 10.0 1.0E-4
+nonbond style	lj/cutoff 10.0 0
+mixing style	arithmetic
+
+read data	data.lc.big
+
+# bottom layer = molecules 1-9
+# middle layer = molecules 10-18
+# top layer = molecules 19-27
+
+create group	molecules 10 18
+create temp	uniform 400.0 4762
+create group	molecules 1 9
+create temp	uniform 300.0 598287
+create group	molecules 19 27
+create temp	uniform 300.0 33785
+
+press control	nose/hoover xyz 1.0 1.0 0.0001
+
+# fix middle layer at 400K, other 2 layers are remainder at 300K
+
+fix style	1 rescale 400.0 400.0 10 10.0 0.5
+fix style	2 rescale 300.0 300.0 10 10.0 0.5
+assign fix	1 molecule 10
+assign fix	1 molecule 11
+assign fix	1 molecule 12
+assign fix	1 molecule 13
+assign fix	1 molecule 14
+assign fix	1 molecule 15
+assign fix	1 molecule 16
+assign fix	1 molecule 17
+assign fix	1 molecule 18
+assign fix	2 remainder
+
+timestep	1.0
+thermo flag	50
+
+# compute temp of molecules 10-18 and other = all the rest
+
+diagnostic	temp_molecules 10 none 2 10 18
+
+run		100

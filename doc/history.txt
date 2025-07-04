@@ -1,0 +1,170 @@
+History of LAMMPS
+
+This is a brief history of features added to each version of LAMMPS.
+
+** LAMMPS 2001 - November 2001
+    
+    F90 + MPI version of code 
+    
+    dynamic memory, no param.h file settings to twiddle, see "extra memory"
+    command
+
+    changed required ordering of some input script commands (see discussion in
+    input_commands file)
+    
+    new commands: "extra memory", "maximum cutoff", "restart version",
+    "angle coeff", "dihedral coeff", "improper coeff",
+    "volume control", "slab volume", "rotation zero"
+    
+    changed meaning or syntax of commands:
+    "special bonds", "fix style rescale", "fix style hoover/drag",
+    "temp control rescale", "press control", "restart"
+    
+    deleted commands: "log file", "press_x control" (and y,z)
+    
+    better match to CHARMM force fields via "nonbond style lj/charmm",
+    "coulomb style charmm/switch", "angle style charmm", dihedral style charmm"
+    (due to Mark Stevens and Paul Crozier)
+    
+    changed "special bonds" default to 0.0 weighting on 1-4 interactions for
+    CHARMM compatibility, added "special bonds amber" option for AMBER
+    compatibility
+    
+    ghost atoms and new treatment of periodic boundary conditions, 
+    this allows for cutoffs > box-size and faster neighbor binning,
+    binned neighbor list construction is now the default as it is almost
+    always faster
+    
+    perform blocked-input from data and restart files, faster for many MPI 
+    implementations (due to Mathias Puetz)
+    
+    added Velocities option to data file to initialize each atom's
+    velocity (see data_format file)
+    
+    pressure control was decoupled from temperature control, so that
+    constant NPH simulations can be run (not just NPT), temperature 
+    controls such as rescale or Langevin can now be used with constant P
+    simulations (due to Mark Stevens)
+    
+    temperature rescaling (either in "temp control" or "fix style rescale")
+    has an added fractional parameter which allows it to be applied
+    in a lightweight or heavy-handed way to induce the desired temperature
+    
+    got rid of crib.html file, see global.f for documentation of all 
+    variables
+    
+    2-d slab Ewald and PPPM option, (see "slab volume" in
+    input commands) (due to Paul Crozier)
+    
+    new multiharmonic dihedral and cvff improper force-field options
+    (due to Mathias Puetz)
+    
+    SHAKE constraint for small clusters of atoms, see "fix style shake"
+    and "assign fix bondtype" commands
+    
+    added option to output restart files with timestep stamp or to toggle
+    between 2 files, see "restart" command
+    
+    tools for converting to/from other MD program formats:
+    msi2lmp (updated by John Carpenter),
+    lmp2arc (due to John Carpenter),
+    amber2lammps & dump2trj (Python scripts due to Keir Novik)
+
+    tools for creating and massaging LAMMPS data and restart files:
+    setup_lj, setup_flow_2d, setup_chain, peek_restart, restart2data,
+    replicate
+
+** LAMMPS 99 - June 99 
+    
+    all-MPI version of code (F77 + C + MPI) for maximum portablility 
+    
+    only one PPPM choice now, the better of the two earlier ones 
+    
+    PPPM uses portable FFTs and data remapping routines, written in C w/ 
+    MPI, can now use non-power-of-2 processors and grid sizes 
+    
+    auto-mapping of simulation box to processors 
+    
+    removed a few unused/unneeded commands (bdump, log file, id string, 
+    limit) 
+    
+    changed syntax of some commands for simplicity & consistency
+    (see input commands) 
+    
+    changed method of calling/writing user diagnostic routines to be 
+    simpler 
+    
+    documentation in HTML format 
+
+** Version 5.0 - Oct 1997 
+    
+    final version of class II force fields (due to Eric Simon)
+    
+    new formulation of NVE, NVT, NPT and rRESPA integrators (due to
+    Mark Stevens)
+    
+    new version of msi2lmp pre-processing tool, does not require DISCOVER 
+    to run, only DISCOVER force field files (due to Steve Lustig)
+    
+    energy minimizer, Hessian-free truncated Newton method
+    (due to Todd Plantenga)
+    
+    new pressure controllers and constraints (due to Mark Stevens)
+    
+    replicate tool for generating new data files from old ones 
+
+** Version 4.0 - March 1997 
+    
+    1st version of class II force fields (due to Eric Simon)
+    
+    new, faster PPPM solver (newpppm, due to Roy Pollock)
+    
+    rRESPA (due to Mark Stevens)
+    
+    new data file format 
+    
+    new constraints, diagnostics 
+    
+    msi2lmp pre-processing tool (due to Steve Lustig)
+
+** Version 3.0 - March 1996 
+    
+    more general force-field formulation 
+    
+    atom/group constraints 
+    
+    LJ units and bond potentials 
+    
+    smoothed LJ potential option 
+    
+    Langevin thermostat 
+    
+    Newton's 3rd law option 
+    
+    hook for user-supplied diagnostic routines 
+
+** Version 2.0 - October 1995 
+    
+    bug fix of velocity initialization which caused drift 
+    
+    PPPM for long-range Coulombic (due to Roy Pollock)
+    
+    constant NPT (due to Mark Stevens)
+
+** Version 1.1 - February 1995 
+    
+    Ewald for long-range Coulombic (due to Roy Pollock)
+    
+    full Newton's 3rd law (doubled communication) 
+    
+    dumping of atom positions and velocities 
+    
+    restart files 
+
+** Version 1.0 - January 1995 
+    
+    short-range bonded and non-bonded forces 
+    
+    partial Newton's 3rd law 
+    
+    velocity-Verlet integrator 

@@ -1,0 +1,40 @@
+# Makefile for Computational Plant - delmar
+
+SHELL = /bin/sh
+.IGNORE:
+
+MPI_CAFLAGS  = -I/usr/local/delmar/build/LINUX/ch_gm/include
+LFLAGS       = -L/usr/local/delmar/build/LINUX/ch_gm/lib
+
+# System-specific settings
+
+F90 =           /usr/local/delmar/bin/mpif90
+F90FLAGS =	-O $(MPI_CAFLAGS) 
+CC =            /usr/local/delmar/bin/mpicc
+CCFLAGS =       -O $(MPI_CAFLAGS) -DFFT_DEC -DLINUX_KLUDGE
+LINK =		/usr/local/delmar/bin/mpif90
+LINKFLAGS =	-O $(LFLAGS)
+USRLIB =        
+SYSLIB =	-lmpich -lgm -lcxml 
+SIZE =		size
+
+# Link rule
+
+$(EXE):	$(OBJ)
+	$(LINK) $(LINKFLAGS) $(OBJ) $(USRLIB) $(SYSLIB) -o $(EXE)
+	$(SIZE) $(EXE)
+
+# Compilation rules
+
+.f.o:
+	@cp $< $*.F
+	$(F90) $(F90FLAGS) -c $*.F
+	@rm $*.F
+
+.c.o:
+	$(CC) $(CCFLAGS) -c $<
+
+
+# Individual dependencies
+
+include Makefile.depend

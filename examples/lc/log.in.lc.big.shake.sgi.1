@@ -1,0 +1,204 @@
+ LAMMPS 2001 (Nov 2001)
+# 3x3 array of liquid-crystal molecules
+# SHAKE with long-range Coulombics via PPPM, NPT
+# one C-H bondtype is SHAKEn
+ Units real
+ Neighbor 2.,  1,  20,  0,  1
+ Coulomb style pppm 10.,  1.00000000000000005E-4
+ Nonbond style lj/cutoff 10.,  0
+ Mixing style arithmetic
+ Read data data.lc.big
+ Max # bonds/atom = 4
+ Max # angles/atom = 6
+ Max # dihedrals/atom = 24
+ Max # impropers/atom = 4
+ 3-d grid of procs = 3*1
+ Extra params: Extra own,ghost,neigh,buf
+      1.00      1.50      1.50      1.50
+ Atom arrays: Max own,ghost,atom,buf
+      6750     22921     29671     22921
+ Neighbor arrays: Max nonbond,bond,angle,dihedral,improper
+   1788100      7155     12150     17685      4995
+ Create temp uniform  300.,  4762
+   Velocites set for this many atoms: 6750
+ Temp control nose/hoover 2*300.,  1.00000000000000002E-2
+ Press control nose/hoover xyz 1.0 1.0 0.0001
+ Timestep 1.
+ Thermo flag 50
+ Fix style 1  shake 3,  1.00000000000000002E-2,  10
+ Assign fix 1  bondtype 3
+ Run 100
+ Max possible # of 1-2 neighbors = 4
+ Max possible # of 1-3 neighbors = 8
+ Max possible # of 1-4 neighbors = 20
+ Max allocation for special neighbors = 22
+ Max actual special neighbors = 22
+ SHAKE clusters of size 2 = 0
+ SHAKE clusters of size 3 = 405
+ SHAKE clusters of size 4 = 135
+ Actual PPPM grid = 20,  10,  15
+ PPPM G = 0.2058626310713377
+ Expected RMS precision = 8.41855132770090518E-5
+ PPPM max grid size = 7500
+ PPPM max FFT size = 3000
+ PPPM max buffer size = 4500
+ SHAKE bond distance statistics (type,ave,delta) on timestep 0
+    3,  1.0901743220474449,  2.30277780598941995E-3
+ Memory use per processor (MBytes) =  18.917
+ 
+ --------------- Step        0 ---- CPU =      0.0000 (sec) ---------------
+ Total E =      6323.5186 Total KE=      6036.0924 Temp    =       319.1489
+ Total PE=       287.4262 E_bond  =      1483.9877 E_angle =      1208.5642
+ E_dihed =       867.6335 E_impr  =         3.3321 E_vdwl  =     -2484.1358
+ E_coul  =      8901.3298 E_long  =     -9693.2854 Press   =    -18160.3221
+ Volume  =    138327.7500
+ 
+ SHAKE bond distance statistics (type,ave,delta) on timestep 10
+    3,  1.0899994581037491,  5.75276733205676294E-6
+ SHAKE bond distance statistics (type,ave,delta) on timestep 20
+    3,  1.0899994449873314,  9.91999368182838737E-6
+ SHAKE bond distance statistics (type,ave,delta) on timestep 30
+    3,  1.0899996898314166,  3.95437050393354639E-6
+ SHAKE bond distance statistics (type,ave,delta) on timestep 40
+    3,  1.0899994303968996,  4.97087818973618312E-6
+ SHAKE bond distance statistics (type,ave,delta) on timestep 50
+    3,  1.0899989376052248,  8.53840002434935741E-6
+ --------------- Step       50 ---- CPU =     80.3491 (sec) ---------------
+ Total E =      6192.4944 Total KE=      4463.1543 Temp    =       235.9823
+ Total PE=      1729.3401 E_bond  =      1612.2663 E_angle =      2361.3776
+ E_dihed =      1208.8341 E_impr  =       337.6612 E_vdwl  =     -2589.4066
+ E_coul  =      8549.6816 E_long  =     -9751.0741 Press   =     -8058.1201
+ Volume  =    138309.9848
+ 
+ SHAKE bond distance statistics (type,ave,delta) on timestep 60
+    3,  1.0899988355732215,  7.23396897317485355E-6
+ SHAKE bond distance statistics (type,ave,delta) on timestep 70
+    3,  1.0899992713696858,  6.63572493109221284E-6
+ SHAKE bond distance statistics (type,ave,delta) on timestep 80
+    3,  1.0899994764378307,  1.07384847103375591E-5
+ SHAKE bond distance statistics (type,ave,delta) on timestep 90
+    3,  1.0899992569900372,  8.41121541483857982E-6
+ SHAKE bond distance statistics (type,ave,delta) on timestep 100
+    3,  1.0899994768893022,  9.88638903143268521E-6
+ --------------- Step      100 ---- CPU =    162.7530 (sec) ---------------
+ Total E =      7103.5964 Total KE=      4689.6584 Temp    =       247.9583
+ Total PE=      2413.9380 E_bond  =      1439.9064 E_angle =      2629.4879
+ E_dihed =      1368.8869 E_impr  =       452.2922 E_vdwl  =     -2234.9119
+ E_coul  =      8530.8117 E_long  =     -9772.5352 Press   =      5010.6279
+ Volume  =    138275.9337
+ 
+ Loop time: 162.76997699999993  on 1  procs for 6750  atoms
+ 
+ Nbond time/%:     112.922472      69.3755
+ Long  time/%:      14.362753       8.8240
+ Bond  time/%:       0.889267       0.5463
+ Angle time/%:       4.030771       2.4764
+ Dihed time/%:       8.434178       5.1817
+ Impro time/%:       2.330012       1.4315
+ Nay-1 time/%:       1.454673       0.8937
+ Nay-2 time/%:       0.079697       0.0490
+ Exch  time/%:       0.004666       0.0029
+ Comm  time/%:       1.266406       0.7780
+ Fcomm time/%:       1.296532       0.7965
+ Shake time/%:       1.659241       1.0194
+ I/O   time/%:       0.000000       0.0000
+ Other time/%:      14.039309       8.6252
+ 
+ Nbond time:     112.9225 ave     112.9225 max     112.9225 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Long  time:      14.3628 ave      14.3628 max      14.3628 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Bond  time:       0.8893 ave       0.8893 max       0.8893 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Angle time:       4.0308 ave       4.0308 max       4.0308 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Dihed time:       8.4342 ave       8.4342 max       8.4342 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Impro time:       2.3300 ave       2.3300 max       2.3300 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nay-1 time:       1.4547 ave       1.4547 max       1.4547 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nay-2 time:       0.0797 ave       0.0797 max       0.0797 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Exch  time:       0.0047 ave       0.0047 max       0.0047 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Comm  time:       1.2664 ave       1.2664 max       1.2664 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Fcomm time:       1.2965 ave       1.2965 max       1.2965 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Shake time:       1.6592 ave       1.6592 max       1.6592 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ I/O   time:       0.0000 ave       0.0000 max       0.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Other time:      14.0393 ave      14.0393 max      14.0393 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ 
+ PPPM timing info:
+   Make_rho time = 3.8266350000003513
+   Make_rho % of long time = 26.642768277081242
+   Poisson time = 2.6194159999959084
+   Poisson % of long time = 18.237562116366888
+   Electric_field time = 5.8946939999977985
+   Electric_field % of long time = 41.041532915009675
+   Brick2fft time per timestep = 1.05869999997594273E-3
+   Total brick2fft time = 0.10586999999759428
+   Brick2fft % of long time = 0.73711495280585604
+   Fillbrick time per timestep = 2.68420000002151955E-3
+   Total fillbrick time = 0.26842000000215194
+   Fillbrick % of long time = 1.868861770456504
+   FFT time per timestep = 2.63227999999799053E-2
+   Total FFT time = 2.6322799999979907
+   FFT % of long time = 18.32712711829987
+   Setup time per timestep = 5.44911999999385457E-2
+   Total setup time = 5.4491199999938544
+   Setup % of other time = 38.813306267348004
+ 
+ Nlocal:        6750.0000 ave    6750.0000 max    6750.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nghost:       14273.0000 ave   14273.0000 max   14273.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nbonds:        5940.0000 ave    5940.0000 max    5940.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nangle:       12150.0000 ave   12150.0000 max   12150.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Ndihed:       17685.0000 ave   17685.0000 max   17685.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nimpro:        4995.0000 ave    4995.0000 max    4995.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Neighs:     1190223.0000 ave 1190223.0000 max 1190223.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nswaps:       14273.0000 ave   14273.0000 max   14273.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ Nspecs:       71550.0000 ave   71550.0000 max   71550.0000 min
+  Histogram:    1    0    0    0    0    0    0    0    0    0
+ 
+ Total # of neighbors = 1190223
+ Ave neighs/atom =  176.329333
+ Ave nspecs/atom =   10.600000
+ Number of reneighborings = 1
+ Dangerous reneighborings = 0
+ 
+ Actual extra params: Extra own,ghost,neigh,buf
+      1.00      1.50      1.50      1.50
+ Optimal extra params: Extra own,ghost,neigh,buf
+      1.01      0.95      1.01      0.64
+ Max # of local atoms = 6750  out of 6750
+ Max # of ghost atoms = 14394  out of 22921
+ Max in neighbor list = 1190223  out of 1788100
+ Max in swap list = 14394  out of 22921
+ Max atoms exchanged = 0
+ Max atoms in border = 3216  out of 7640
+ Max use of comm buffers = 9648  out of 22921
+ Max # of bonds/atom = 4
+ Max # of angles/atom = 6
+ Max # of dihedrals/atom = 24
+ Max # of impropers/atom = 4
+ Max in bond list = 5940  out of 7155
+ Max in angle list = 12150  out of 12150
+ Max in dihedral list = 17685  out of 17685
+ Max in improper list = 4995  out of 4995
+ Max # of neighbor bins = 2926
+ Bins in stencil = 62
+ # of swaps = 6  Needs = 3*1
+ Cutneigh = 12.
+ Cut/Box = 0.14816665107991472,  0.34786952862240789,  0.24245451994895131

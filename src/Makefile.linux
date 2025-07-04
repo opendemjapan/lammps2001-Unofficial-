@@ -1,0 +1,36 @@
+# Makefile for Dell box with Debian linux
+
+SHELL = /bin/sh
+#.IGNORE:
+
+# System-specific settings
+
+F90 =		ifort
+F90FLAGS =	-O -w -I/home/sjplimp/tools/mpich/include
+CC =		gcc
+CCFLAGS =	-O -I/home/sjplimp/tools/mpich/include -I/home/sjplimp/tools/fftw/include -DFFT_FFTW
+LINK =		ifort
+LINKFLAGS =	-O -L/home/sjplimp/tools/fftw/lib -L/home/sjplimp/tools/mpich/lib
+USRLIB =
+SYSLIB =	-lfftw -lmpich
+SIZE =		size
+
+# Link rule
+
+$(EXE):	$(OBJ)
+	$(LINK) $(LINKFLAGS) $(OBJ) $(USRLIB) $(SYSLIB) -o $(EXE)
+	$(SIZE) $(EXE)
+
+# Compilation rules
+
+.f.o:
+	@cp $< $*.F
+	$(F90) $(F90FLAGS) -c $*.F
+	@rm $*.F
+
+.c.o:
+	$(CC) $(CCFLAGS) -c $<
+
+# Individual dependencies
+
+include Makefile.depend

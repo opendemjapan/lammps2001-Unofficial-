@@ -1,0 +1,54 @@
+# 2-d LJ flow simulation
+# average force on walls inward in +/- y-dim
+
+units		lj
+dimension	2
+periodicity	0 1 0
+newton flag	0
+
+maximum cutoff	1.12246
+neighbor	0.3 1 1 5 1
+
+read data	data.flow.cold
+
+# flow atom potentials
+
+coulomb style	none
+nonbond style	lj/cutoff 1.12246 1
+nonbond coeff	1 1 1.0 1.0 1.12246
+nonbond coeff	1 2 1.0 1.0 1.12246
+nonbond coeff	1 3 1.0 1.0 1.12246
+nonbond coeff	2 2 1.0 1.0 1.12246
+nonbond coeff	2 3 1.0 1.0 1.12246
+nonbond coeff	3 3 1.0 1.0 1.12246
+
+# initialize wall atoms with zero v
+
+create group	types 2 3
+create temp	velocity 0.0 0.0 0.0
+
+# initialize flow atoms
+
+create group	remainder
+create temp	uniform 1.0 482748
+
+# aveforce walls above and below, pushing inward
+
+fix style	1 aveforce 0.0 3.0 0.0
+assign fix	1 type 2
+fix style	2 aveforce 0.0 -3.0 0.0
+assign fix	2 type 3
+
+# thermostat flow atoms
+
+fix style	3 rescale 1.0 1.0 20 0.02 1.0
+assign fix	3 type 1
+
+timestep	0.003
+
+thermo flag	100
+thermo style	1
+
+#dump atoms	50 dump.flow.ave
+
+run		1000
